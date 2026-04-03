@@ -4,287 +4,170 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Fernanda Sulantay — Content Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --ink: #1a1a2e;
-    --accent: #2d2d5e;
-    --rose: #c0607a;
-    --mid: #555;
-    --light: #888;
-    --bg: #fafaf8;
-    --white: #ffffff;
-    --border: #e4e4e8;
+    --hero-dark:  #1a1510;
+    --hero-mid:   #2e2416;
+    --hero-light: #3d3020;
+    --gold:       #c9a84c;
+    --gold-light: #e8d5a3;
+    --gold-pale:  #f5edd8;
+    --ink:        #0f0e0c;
+    --mid:        #4a4540;
+    --muted:      #7a7570;
+    --bg:         #faf9f7;
+    --bg2:        #f2f0eb;
+    --white:      #ffffff;
+    --border:     #e0ddd6;
+    --rose:       #8b3a52;
   }
-
-  body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: var(--bg);
-    color: var(--ink);
-    line-height: 1.5;
-  }
-
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; }
   a { color: inherit; text-decoration: none; }
 
-  /* ── HERO ── */
+  /* HERO */
   .hero {
-    background: linear-gradient(135deg, var(--ink) 0%, var(--accent) 100%);
-    color: white;
-    padding: 72px 24px 56px;
-    text-align: center;
+    background: linear-gradient(160deg, var(--hero-dark) 0%, var(--hero-mid) 55%, var(--hero-light) 100%);
+    color: white; padding: 80px 24px 64px; text-align: center; position: relative; overflow: hidden;
   }
-  .hero-photo {
-    width: 100px; height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid rgba(255,255,255,0.35);
-    margin-bottom: 20px;
+  .hero::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 60% 0%, rgba(201,168,76,0.18) 0%, transparent 65%);
+    pointer-events: none;
   }
-  .hero h1 {
-    font-size: clamp(26px, 5vw, 44px);
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    margin-bottom: 10px;
-  }
-  .hero-sub {
-    font-size: clamp(14px, 2.5vw, 17px);
-    opacity: 0.82;
-    max-width: 580px;
-    margin: 0 auto 32px;
-    line-height: 1.65;
-  }
-  .stats {
-    display: flex;
-    justify-content: center;
-    gap: clamp(20px, 5vw, 48px);
-    flex-wrap: wrap;
-    margin-bottom: 32px;
-  }
-  .stat-num { display: block; font-size: clamp(22px, 4vw, 32px); font-weight: 700; }
-  .stat-label { font-size: 11px; opacity: 0.65; text-transform: uppercase; letter-spacing: 1px; }
-  .hero-links { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
-  .hero-link {
-    padding: 9px 22px;
-    border: 1.5px solid rgba(255,255,255,0.4);
-    border-radius: 100px;
-    font-size: 13px;
-    transition: background .2s, border-color .2s;
-    color: white;
-  }
-  .hero-link:hover { background: rgba(255,255,255,0.15); border-color: white; }
+  .hero-photo { width: 108px; height: 108px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); margin-bottom: 22px; position: relative; }
+  .hero-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(30px, 5.5vw, 52px); font-weight: 700; line-height: 1.15; margin-bottom: 18px; }
+  .hero-divider { width: 48px; height: 1px; background: var(--gold); margin: 0 auto 24px; }
+  .hero-sub { font-size: clamp(14px, 2vw, 16px); color: rgba(255,255,255,0.72); max-width: 540px; margin: 0 auto 36px; line-height: 1.75; font-weight: 300; }
+  .stats { display: flex; justify-content: center; gap: clamp(24px, 5vw, 56px); flex-wrap: wrap; margin-bottom: 36px; }
+  .stat-num { display: block; font-family: 'Playfair Display', serif; font-size: clamp(24px, 4vw, 36px); font-weight: 600; color: var(--gold-light); }
+  .stat-label { font-size: 10px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 2px; }
+  .hero-links { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+  .hero-link { padding: 9px 22px; border: 1px solid rgba(201,168,76,0.45); border-radius: 2px; font-size: 12px; font-weight: 500; letter-spacing: 0.5px; color: rgba(255,255,255,0.85); transition: all .2s; }
+  .hero-link:hover { background: rgba(201,168,76,0.15); border-color: var(--gold); color: var(--gold-light); }
 
-  /* ── NAV TABS ── */
-  .tabs-wrap {
-    background: white;
-    border-bottom: 1px solid var(--border);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
+  /* TABS */
+  .tabs-wrap { background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
   .tabs-wrap::-webkit-scrollbar { display: none; }
-  .tabs {
-    display: flex;
-    justify-content: center;
-    min-width: max-content;
-    margin: 0 auto;
-    padding: 0 16px;
-  }
-  .tab {
-    padding: 16px 20px;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-    color: var(--light);
-    border-bottom: 2px solid transparent;
-    cursor: pointer;
-    transition: color .2s, border-color .2s;
-    white-space: nowrap;
-  }
+  .tabs { display: flex; justify-content: center; min-width: max-content; margin: 0 auto; padding: 0 20px; }
+  .tab { padding: 17px 22px; font-size: 12px; font-weight: 500; letter-spacing: 0.8px; text-transform: uppercase; color: var(--muted); border-bottom: 2px solid transparent; cursor: pointer; transition: all .2s; white-space: nowrap; }
   .tab:hover { color: var(--ink); }
-  .tab.active { color: var(--ink); border-bottom-color: var(--ink); }
+  .tab.active { color: var(--ink); border-bottom-color: var(--gold); }
 
-  /* ── MAIN ── */
-  .main { max-width: 1120px; margin: 0 auto; padding: 48px 20px 100px; }
-
+  /* MAIN */
+  .main { max-width: 1140px; margin: 0 auto; padding: 56px 20px 100px; }
   .section { display: none; }
   .section.active { display: block; }
 
-  /* ── SECTION LABEL ── */
-  .section-label {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 28px;
-  }
-  .section-tag {
-    background: var(--ink);
-    color: white;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    padding: 4px 13px;
-    border-radius: 100px;
-    white-space: nowrap;
-  }
-  .section-line { flex: 1; height: 1px; background: var(--border); }
-  .section-desc { font-size: 14px; color: var(--mid); margin-bottom: 32px; line-height: 1.65; max-width: 700px; }
+  /* SECTION HEADER */
+  .section-header { margin-bottom: 40px; }
+  .section-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .gold-line { width: 40px; height: 2px; background: var(--gold); margin-bottom: 14px; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: clamp(22px, 3.5vw, 32px); font-weight: 600; color: var(--ink); margin-bottom: 12px; }
+  .section-desc { font-size: 14px; color: var(--muted); max-width: 640px; line-height: 1.75; font-weight: 300; }
 
-  /* ── GRID ── */
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 24px; }
-  .grid-2 { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; }
+  /* GRIDS */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 24px; }
 
-  /* ── CARD ── */
-  .card {
-    background: white;
-    border-radius: 14px;
-    overflow: hidden;
-    box-shadow: 0 2px 14px rgba(0,0,0,0.07);
-    transition: transform .22s, box-shadow .22s;
-    display: flex;
-    flex-direction: column;
-  }
-  .card:hover { transform: translateY(-5px); box-shadow: 0 10px 32px rgba(0,0,0,0.12); }
-  .card-link { display: flex; flex-direction: column; flex: 1; color: inherit; }
-
-  .thumb {
-    position: relative;
-    width: 100%;
-    padding-top: 56.25%;
-    background: #ddd;
-    overflow: hidden;
-    flex-shrink: 0;
-  }
-  .thumb img {
-    position: absolute; top: 0; left: 0;
-    width: 100%; height: 100%;
-    object-fit: cover;
-    transition: transform .3s;
-  }
+  /* CARD */
+  .card { background: var(--white); border: 1px solid var(--border); border-radius: 2px; overflow: hidden; transition: transform .22s, box-shadow .22s, border-color .22s; display: flex; flex-direction: column; }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(15,14,12,0.1); border-color: var(--gold); }
+  .card-link { display: flex; flex-direction: column; flex: 1; }
+  .thumb { position: relative; width: 100%; padding-top: 56.25%; background: var(--bg2); overflow: hidden; flex-shrink: 0; }
+  .thumb img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .3s; }
   .card:hover .thumb img { transform: scale(1.04); }
-  .play {
-    position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 50px; height: 50px;
-    background: rgba(255,255,255,0.93);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    pointer-events: none;
-  }
-  .play svg { width: 18px; height: 18px; fill: var(--ink); margin-left: 3px; }
-  .badge {
-    position: absolute; top: 10px; left: 10px;
-    background: var(--ink); color: white;
-    font-size: 9px; font-weight: 700; letter-spacing: 1px;
-    text-transform: uppercase; padding: 3px 10px; border-radius: 100px;
-  }
-  .badge.rose { background: var(--rose); }
-  .badge.green { background: #2a7a5a; }
+  .play { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 48px; height: 48px; background: rgba(255,255,255,0.92); border-radius: 50%; display: flex; align-items: center; justify-content: center; pointer-events: none; box-shadow: 0 2px 12px rgba(0,0,0,0.15); }
+  .play svg { width: 16px; height: 16px; fill: var(--ink); margin-left: 3px; }
+  .badge { position: absolute; top: 12px; left: 12px; font-size: 9px; font-weight: 600; letter-spacing: 1.2px; text-transform: uppercase; padding: 4px 10px; background: var(--hero-dark); color: var(--gold-light); border: 1px solid rgba(201,168,76,0.3); }
+  .badge.gold { background: var(--gold); color: var(--hero-dark); border-color: var(--gold); }
+  .badge.rose { background: var(--rose); color: white; border-color: var(--rose); }
+  .card-body { padding: 20px 22px 24px; flex: 1; display: flex; flex-direction: column; }
+  .card-title { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 600; line-height: 1.3; margin-bottom: 8px; color: var(--ink); }
+  .card-desc { font-size: 13px; color: var(--muted); line-height: 1.65; flex: 1; font-weight: 300; }
+  .card-tag { display: inline-block; margin-top: 14px; font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); padding-top: 12px; border-top: 1px solid var(--border); width: 100%; }
 
-  .card-body { padding: 18px 20px 22px; flex: 1; display: flex; flex-direction: column; }
-  .card-title { font-size: 15px; font-weight: 700; line-height: 1.35; margin-bottom: 7px; }
-  .card-desc { font-size: 13px; color: var(--mid); line-height: 1.55; flex: 1; }
-  .card-tag {
-    display: inline-block; margin-top: 12px;
-    font-size: 11px; font-weight: 700; color: var(--ink);
-    background: #f0f0f8; padding: 4px 11px; border-radius: 100px;
-  }
-  .card-tag.rose { background: #fdf0f3; color: var(--rose); }
-  .card-tag.green { background: #f0faf5; color: #2a7a5a; }
-
-  /* ── FEATURED CARD (wide) ── */
+  /* FEATURED CARD */
   .card-featured { grid-column: 1 / -1; }
-  @media (min-width: 700px) {
+  @media (min-width: 720px) {
     .card-featured .card-link { flex-direction: row; }
-    .card-featured .thumb { width: 45%; padding-top: 26%; flex-shrink: 0; }
-    .card-featured .card-body { padding: 28px 28px; }
-    .card-featured .card-title { font-size: 18px; }
+    .card-featured .thumb { width: 44%; padding-top: 25%; flex-shrink: 0; }
+    .card-featured .card-body { padding: 32px; }
+    .card-featured .card-title { font-size: 22px; }
     .card-featured .card-desc { font-size: 14px; }
   }
 
-  /* ── BRANDS ── */
-  .brands-box { background: white; border-radius: 14px; padding: 36px; box-shadow: 0 2px 14px rgba(0,0,0,0.06); }
+  /* EVENTS */
+  .upcoming-tag { display: inline-block; margin-bottom: 24px; font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 14px; background: var(--gold-pale); color: var(--gold); border: 1px solid var(--gold); }
+  .events-list { display: flex; flex-direction: column; }
+  .event-item { display: grid; grid-template-columns: 110px 1fr; gap: 0 28px; padding: 28px 0; border-bottom: 1px solid var(--border); align-items: start; }
+  .event-item:first-child { border-top: 1px solid var(--border); }
+  .event-date { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); padding-top: 3px; line-height: 1.4; }
+  .event-upcoming { color: var(--rose); }
+  .event-name { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 4px; line-height: 1.3; }
+  .event-role { font-size: 12px; font-weight: 500; color: var(--gold); margin-bottom: 4px; font-style: italic; }
+  .event-location { font-size: 12px; color: var(--muted); font-weight: 300; }
+  .event-photo { margin-top: 14px; border-radius: 2px; overflow: hidden; max-height: 220px; }
+  .event-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* MEDIA / PRESS */
+  .media-section { margin-bottom: 48px; }
+  .media-section-title { font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .press-list { display: flex; flex-direction: column; }
+  .press-item { display: flex; align-items: baseline; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--border); cursor: pointer; }
+  .press-item:first-child { border-top: 1px solid var(--border); }
+  .press-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); flex-shrink: 0; margin-top: 7px; }
+  .press-content { flex: 1; }
+  .press-title { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 600; color: var(--ink); line-height: 1.35; margin-bottom: 3px; transition: color .2s; }
+  .press-item:hover .press-title { color: var(--gold); }
+  .press-source { font-size: 12px; color: var(--muted); font-weight: 300; }
+  .press-arrow { font-size: 16px; color: var(--border); flex-shrink: 0; transition: color .2s; align-self: center; }
+  .press-item:hover .press-arrow { color: var(--gold); }
+
+  /* PODCAST */
+  .pod-card { background: var(--white); border: 1px solid var(--border); padding: 28px; display: flex; gap: 20px; align-items: flex-start; transition: border-color .2s, box-shadow .2s; }
+  .pod-card:hover { border-color: var(--gold); box-shadow: 0 6px 24px rgba(15,14,12,0.08); }
+  .pod-icon { width: 56px; height: 56px; flex-shrink: 0; background: linear-gradient(135deg, var(--hero-dark), var(--hero-light)); display: flex; align-items: center; justify-content: center; font-size: 24px; border: 1px solid rgba(201,168,76,0.3); }
+  .pod-show { font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .pod-title { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 600; margin-bottom: 8px; color: var(--ink); }
+  .pod-desc { font-size: 13px; color: var(--muted); line-height: 1.65; margin-bottom: 14px; font-weight: 300; }
+  .pod-btn { display: inline-block; padding: 8px 20px; background: var(--hero-dark); color: var(--gold-light); font-size: 11px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; border: 1px solid rgba(201,168,76,0.3); transition: all .2s; }
+  .pod-btn:hover { background: var(--gold); color: var(--hero-dark); }
+
+  /* BRANDS */
+  .brands-box { background: var(--white); border: 1px solid var(--border); padding: 36px; }
   .brand-group { margin-bottom: 28px; }
   .brand-group:last-child { margin-bottom: 0; }
-  .brand-group-label {
-    font-size: 10px; font-weight: 700; letter-spacing: 1.2px;
-    text-transform: uppercase; color: var(--light); margin-bottom: 12px;
-  }
+  .brand-group-label { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
   .pills { display: flex; flex-wrap: wrap; gap: 8px; }
-  .pill {
-    display: inline-block; font-size: 13px;
-    padding: 5px 15px; border-radius: 100px;
-    border: 1.5px solid var(--border); background: var(--bg); color: var(--ink);
-  }
-  .pill.featured { background: var(--ink); color: white; border-color: var(--ink); font-weight: 700; }
+  .pill { display: inline-block; font-size: 12px; padding: 5px 14px; border: 1px solid var(--border); background: var(--bg); color: var(--ink); transition: border-color .2s; }
+  .pill:hover { border-color: var(--gold); }
+  .pill.featured { background: var(--hero-dark); color: var(--gold-light); border-color: rgba(201,168,76,0.4); font-weight: 500; }
+  .amb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 16px; margin-top: 28px; }
+  .amb-card { background: var(--white); border: 1px solid var(--border); padding: 22px 20px; }
+  .amb-name { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 600; margin-bottom: 5px; }
+  .amb-desc { font-size: 12px; color: var(--muted); line-height: 1.5; font-weight: 300; }
+  .sub-label { font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin: 48px 0 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
 
-  /* ── AMBASSADOR ── */
-  .amb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 16px; margin-top: 24px; }
-  .amb-card { background: white; border-radius: 12px; padding: 20px 18px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
-  .amb-name { font-size: 14px; font-weight: 700; margin-bottom: 5px; }
-  .amb-desc { font-size: 12px; color: var(--light); line-height: 1.45; }
-
-  /* ── SPEAKING ── */
-  .speaking-list { display: flex; flex-direction: column; gap: 16px; }
-  .speaking-item {
-    background: white; border-radius: 12px; padding: 22px 24px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-    display: flex; align-items: flex-start; gap: 18px;
-  }
-  .speaking-icon {
-    width: 42px; height: 42px; border-radius: 10px;
-    background: var(--ink); color: white;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px; flex-shrink: 0;
-  }
-  .speaking-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-  .speaking-desc { font-size: 13px; color: var(--mid); line-height: 1.5; }
-  .speaking-link {
-    display: inline-block; margin-top: 8px; font-size: 12px; font-weight: 700;
-    color: var(--rose); text-decoration: underline;
-  }
-
-  /* ── PODCAST CARDS ── */
-  .podcast-card {
-    background: white; border-radius: 14px; padding: 24px;
-    box-shadow: 0 2px 14px rgba(0,0,0,0.07);
-    display: flex; gap: 18px; align-items: flex-start;
-  }
-  .podcast-icon {
-    width: 52px; height: 52px; border-radius: 12px;
-    background: linear-gradient(135deg, var(--ink), var(--accent));
-    color: white; display: flex; align-items: center; justify-content: center;
-    font-size: 22px; flex-shrink: 0;
-  }
-  .podcast-title { font-size: 15px; font-weight: 700; margin-bottom: 5px; }
-  .podcast-desc { font-size: 13px; color: var(--mid); line-height: 1.5; margin-bottom: 10px; }
-  .podcast-listen {
-    display: inline-block; padding: 7px 18px; border-radius: 100px;
-    background: var(--ink); color: white; font-size: 12px; font-weight: 700;
-    transition: background .2s;
-  }
-  .podcast-listen:hover { background: var(--accent); }
-
-  @media (max-width: 540px) {
-    .grid { grid-template-columns: 1fr; }
-    .grid-2 { grid-template-columns: 1fr; }
+  @media (max-width: 580px) {
+    .grid, .grid-2 { grid-template-columns: 1fr; }
     .amb-grid { grid-template-columns: 1fr 1fr; }
-    .speaking-item { flex-direction: column; gap: 10px; }
-    .podcast-card { flex-direction: column; }
+    .event-item { grid-template-columns: 1fr; gap: 6px; }
+    .pod-card { flex-direction: column; }
   }
 </style>
 </head>
 <body>
 
-<!-- HERO -->
 <div class="hero">
-  <img class="hero-photo" src="https://fernandasulantay.com/wp-content/uploads/2023/12/img_2973-2-1-1.jpg" alt="Fernanda Sulantay" />
+  <img class="hero-photo" src="https://fernandasulantay.com/wp-content/uploads/2023/12/img_2973-2-1-1.jpg" alt="Fernanda Sulantay Vargas" />
+  <div class="hero-eyebrow">Content Portfolio</div>
   <h1>Fernanda Sulantay Vargas</h1>
-  <p class="hero-sub">PhD chemist · science communicator · content creator. I make STEM and beauty credible, accessible, and genuinely fun — for students, scientists, and skincare lovers.</p>
+  <div class="hero-divider"></div>
+  <p class="hero-sub">PhD chemist · science communicator · content creator.<br>Where molecular science meets beauty, and credibility meets connection.</p>
   <div class="stats">
     <div><span class="stat-num">270K</span><span class="stat-label">TikTok</span></div>
     <div><span class="stat-num">37K</span><span class="stat-label">Instagram</span></div>
@@ -298,528 +181,510 @@
   </div>
 </div>
 
-<!-- TABS -->
 <div class="tabs-wrap">
   <div class="tabs">
-    <div class="tab active" onclick="showTab('science', this)">🔬 Science Communication</div>
-    <div class="tab" onclick="showTab('beauty', this)">✨ Beauty & Skincare</div>
-    <div class="tab" onclick="showTab('brands', this)">🤝 Brand Partnerships</div>
-    <div class="tab" onclick="showTab('speaking', this)">🎤 Speaking & Media</div>
-    <div class="tab" onclick="showTab('podcasts', this)">🎙️ Podcasts</div>
+    <div class="tab active" onclick="showTab('science',this)">Science Communication</div>
+    <div class="tab" onclick="showTab('beauty',this)">Beauty & Skincare</div>
+    <div class="tab" onclick="showTab('brands',this)">Brand Partnerships</div>
+    <div class="tab" onclick="showTab('speaking',this)">Speaking & Events</div>
+    <div class="tab" onclick="showTab('media',this)">Media & Press</div>
+    <div class="tab" onclick="showTab('podcasts',this)">Podcasts</div>
   </div>
 </div>
 
 <div class="main">
 
-  <!-- ══ SCIENCE COMMUNICATION ══ -->
-  <div id="science" class="section active">
-    <div class="section-label"><span class="section-tag">Science Communication</span><div class="section-line"></div></div>
-    <p class="section-desc">PhD chemist translating molecular science for the public — from crystal nucleation on national TV to explaining atoms to kids. Science is for everyone.</p>
-
-    <div class="grid">
-
-      <!-- CBS #1 -->
-      <div class="card card-featured">
-        <a class="card-link" href="https://www.tiktok.com/@cbsunstoppable/video/7154530300410842414" target="_blank">
-          <div class="thumb">
-            <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/2u1a1318-edited.jpg" alt="CBS Mission Unstoppable" />
-            <div class="badge rose">CBS · National TV</div>
-            <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-          </div>
-          <div class="card-body">
-            <div class="card-title">Crystal Nucleation & Snowflake Science — CBS Mission Unstoppable</div>
-            <div class="card-desc">Featured scientist on CBS Mission Unstoppable (produced with IF/THEN She Can), explaining the molecular science behind snowflake formation for a national TV and digital audience. Watch on TikTok →</div>
-            <span class="card-tag rose">CBS · IF/THEN She Can</span>
-          </div>
-        </a>
-      </div>
-
-      <!-- CBS #2 Instagram -->
-      <div class="card">
-        <a class="card-link" href="https://www.instagram.com/reels/CmhbrTavRwI/" target="_blank">
-          <div class="thumb" style="background:#e8d8f0;">
-            <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/2u1a1318-edited.jpg" alt="CBS Unstoppable Instagram" />
-            <div class="badge rose">CBS · Instagram</div>
-            <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-          </div>
-          <div class="card-body">
-            <div class="card-title">Crystal Nucleation — CBS Mission Unstoppable (Instagram)</div>
-            <div class="card-desc">The same national TV segment shared natively on Instagram Reels, reaching a science-curious audience across platforms.</div>
-            <span class="card-tag rose">CBS · IF/THEN She Can</span>
-          </div>
-        </a>
-      </div>
-
-      <!-- Kids Science Podcast IG -->
-      <div class="card">
-        <a class="card-link" href="https://www.instagram.com/reel/DUXF1FaDJZ5/" target="_blank">
-          <div class="thumb" style="background:#d8eaf0;">
-            <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/ff8af093-1afe-4344-bfb6-610ae646c1bb-edited-1.jpg" alt="Kids Science Podcast" />
-            <div class="badge">Kids Science</div>
-            <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-          </div>
-          <div class="card-body">
-            <div class="card-title">Explaining Science to Kids — Podcast Promo</div>
-            <div class="card-desc">Promoting a children's science podcast episode explaining atoms and molecular concepts — making advanced science joyful and accessible for young audiences.</div>
-            <span class="card-tag">Science Education</span>
-          </div>
-        </a>
-      </div>
-
-      <!-- Skincare science #1 -->
-      <div class="card">
-        <a class="card-link" href="https://www.instagram.com/reel/DVou6RQEkl5/" target="_blank">
-          <div class="thumb" style="background:#f0f0f8;">
-            <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_3722-edited.jpg" alt="Explaining Skincare Science" />
-            <div class="badge green">Skincare Science</div>
-            <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-          </div>
-          <div class="card-body">
-            <div class="card-title">Explaining the Science of Skincare</div>
-            <div class="card-desc">Breaking down skincare ingredients and formulation science for a non-specialist audience — the PhD brain meets the beauty shelf.</div>
-            <span class="card-tag green">Science of Beauty</span>
-          </div>
-        </a>
-      </div>
-
-      <!-- Skincare science #2 -->
-      <div class="card">
-        <a class="card-link" href="https://www.instagram.com/reel/DUvbJZIkexy/" target="_blank">
-          <div class="thumb" style="background:#f0f8f0;">
-            <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg" alt="Skincare Ingredients Science" />
-            <div class="badge green">Skincare Science</div>
-            <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-          </div>
-          <div class="card-body">
-            <div class="card-title">Skincare Ingredients — The Science Behind the Formula</div>
-            <div class="card-desc">A chemist's perspective on what's actually in your skincare products — ingredient education that builds consumer trust and scientific literacy.</div>
-            <span class="card-tag green">Science of Beauty</span>
-          </div>
-        </a>
-      </div>
-
-      <!-- CT Office of Manufacturing -->
-      <div class="card">
-        <a class="card-link" href="https://www.instagram.com/reel/DLGG4U1Sxj0/" target="_blank">
-          <div class="thumb" style="background:#f0e8d8;">
-            <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/2u1a1318-edited.jpg" alt="CT Office of Manufacturing" />
-            <div class="badge">Government · STEM</div>
-            <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-          </div>
-          <div class="card-body">
-            <div class="card-title">CT Office of Manufacturing — STEM Outreach</div>
-            <div class="card-desc">Partnering with the Connecticut Office of Manufacturing to promote STEM careers and science communication to the next generation of engineers.</div>
-            <span class="card-tag">Public Sector Partnership</span>
-          </div>
-        </a>
-      </div>
-
+<!-- SCIENCE -->
+<div id="science" class="section active">
+  <div class="section-header">
+    <div class="section-eyebrow">Content Creation</div>
+    <div class="gold-line"></div>
+    <h2 class="section-title">Science Communication</h2>
+    <p class="section-desc">PhD chemist translating molecular science for everyone — from crystal nucleation on national TV to the chemistry behind your skincare routine.</p>
+  </div>
+  <div class="grid">
+    <div class="card card-featured">
+      <a class="card-link" href="https://www.tiktok.com/@cbsunstoppable/video/7154530300410842414" target="_blank">
+        <div class="thumb">
+          <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/2u1a1318-edited.jpg" alt="CBS Mission Unstoppable" />
+          <div class="badge gold">CBS · National TV</div>
+          <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Crystal Nucleation & Snowflake Science — CBS Mission Unstoppable</div>
+          <div class="card-desc">Featured scientist on CBS Mission Unstoppable (produced with IF/THEN She Can), explaining the molecular science of snowflake formation for a national TV and digital audience. Two segments produced.</div>
+          <div class="card-tag">CBS · IF/THEN She Can — Watch on TikTok →</div>
+        </div>
+      </a>
+    </div>
+    <div class="card">
+      <a class="card-link" href="https://www.instagram.com/reels/CmhbrTavRwI/" target="_blank">
+        <div class="thumb">
+          <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/2u1a1318-edited.jpg" alt="CBS Instagram" />
+          <div class="badge gold">CBS · Instagram</div>
+          <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Crystal Nucleation — CBS Segment on Instagram</div>
+          <div class="card-desc">The national TV segment shared natively on Instagram Reels, reaching a science-curious beauty and lifestyle audience.</div>
+          <div class="card-tag">CBS · IF/THEN She Can</div>
+        </div>
+      </a>
+    </div>
+    <div class="card">
+      <a class="card-link" href="https://www.instagram.com/reel/DVou6RQEkl5/" target="_blank">
+        <div class="thumb">
+          <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_3722-edited.jpg" alt="Skincare Science" />
+          <div class="badge">Skincare Science</div>
+          <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">The Science of Skincare — Ingredient Education</div>
+          <div class="card-desc">Breaking down skincare ingredients and formulation science — a PhD chemist's perspective on what's actually in your products.</div>
+          <div class="card-tag">Original Science Content</div>
+        </div>
+      </a>
+    </div>
+    <div class="card">
+      <a class="card-link" href="https://www.instagram.com/reel/DUvbJZIkexy/" target="_blank">
+        <div class="thumb">
+          <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg" alt="Skincare Chemistry" />
+          <div class="badge">Skincare Science</div>
+          <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Skincare Ingredients — The Chemistry Behind the Formula</div>
+          <div class="card-desc">Ingredient education that builds consumer trust and scientific literacy — the kind of content only a PhD chemist creator can deliver credibly.</div>
+          <div class="card-tag">Original Science Content</div>
+        </div>
+      </a>
+    </div>
+    <div class="card">
+      <a class="card-link" href="https://www.instagram.com/reel/DUXF1FaDJZ5/" target="_blank">
+        <div class="thumb">
+          <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/ff8af093-1afe-4344-bfb6-610ae646c1bb-edited-1.jpg" alt="Kids Podcast" />
+          <div class="badge">Kids Science</div>
+          <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Explaining Science to Kids — Podcast Promo</div>
+          <div class="card-desc">Promoting a bilingual children's science podcast on atoms and molecular structure — making advanced science joyful and accessible.</div>
+          <div class="card-tag">SHPE · Science Education</div>
+        </div>
+      </a>
+    </div>
+    <div class="card">
+      <a class="card-link" href="https://www.instagram.com/reel/DLGG4U1Sxj0/" target="_blank">
+        <div class="thumb">
+          <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/2u1a1318-edited.jpg" alt="CT Manufacturing" />
+          <div class="badge">Government · STEM</div>
+          <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">CT Office of Manufacturing — STEM Outreach</div>
+          <div class="card-desc">Partnering with the Connecticut Office of Manufacturing to promote STEM and engineering careers to the next generation.</div>
+          <div class="card-tag">Public Sector Partnership</div>
+        </div>
+      </a>
     </div>
   </div>
+</div>
 
-  <!-- ══ BEAUTY & SKINCARE ══ -->
-  <div id="beauty" class="section">
-    <div class="section-label"><span class="section-tag">Beauty & Skincare</span><div class="section-line"></div></div>
-    <p class="section-desc">A PhD chemist's take on beauty — credible ingredient education, honest product storytelling, and real-life beauty as a scientist and mom. L'Oréal brand partnerships highlighted.</p>
-
-    <div class="grid">
-
-      <!-- Armani / L'Oréal -->
-      <div class="card">
-        <a class="card-link" href="https://www.instagram.com/reel/DWJmVbKgPr4/" target="_blank">
-          <div class="thumb" style="background:#1a1a2e;">
-            <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg" alt="Armani Beauty" />
-            <div class="badge rose">L'Oréal · Armani Beauty</div>
-            <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-          </div>
-          <div class="card-body">
-            <div class="card-title">Armani Beauty — Product Content</div>
-            <div class="card-desc">Organic content creation featuring Armani Beauty — luxury beauty storytelling that resonates with a science-informed, lifestyle audience.</div>
-            <span class="card-tag rose">L'Oréal Luxe</span>
-          </div>
-        </a>
-      </div>
-
-      <!-- L'Oréal PR Haul 1 -->
-      <div class="card">
-        <a class="card-link" href="https://www.instagram.com/reel/DUv0L06kSjQ/" target="_blank">
-          <div class="thumb" style="background:#c0607a;">
-            <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg" alt="L'Oréal PR" />
-            <div class="badge rose">L'Oréal PR</div>
-            <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-          </div>
-          <div class="card-body">
-            <div class="card-title">L'Oréal PR Haul</div>
-            <div class="card-desc">Unboxing and reviewing L'Oréal PR products — authentic, enthusiastic content with a chemist's eye for ingredients and formulation quality.</div>
-            <span class="card-tag rose">L'Oréal</span>
-          </div>
-        </a>
-      </div>
-
-      <!-- L'Oréal PR 2 -->
-      <div class="card">
-        <a class="card-link" href="https://www.instagram.com/reel/DT3e2LZEudW/" target="_blank">
-          <div class="thumb" style="background:#8b1a3a;">
-            <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg" alt="L'Oréal PR" />
-            <div class="badge rose">L'Oréal PR</div>
-            <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-          </div>
-          <div class="card-body">
-            <div class="card-title">L'Oréal PR — New Launches</div>
-            <div class="card-desc">First-look content featuring new L'Oréal product launches — shared across feed and stories to an engaged beauty and science audience.</div>
-            <span class="card-tag rose">L'Oréal</span>
-          </div>
-        </a>
-      </div>
-
-      <!-- L'Oréal PR 3 -->
-      <div class="card">
-        <a class="card-link" href="https://www.instagram.com/reel/DS56dJxEl1x/" target="_blank">
-          <div class="thumb" style="background:#6a1a2e;">
-            <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg" alt="L'Oréal PR" />
-            <div class="badge rose">L'Oréal PR</div>
-            <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-          </div>
-          <div class="card-body">
-            <div class="card-title">L'Oréal PR — Product Stories</div>
-            <div class="card-desc">Ongoing L'Oréal PR content — product reviews and stories woven naturally into a lifestyle and science content mix.</div>
-            <span class="card-tag rose">L'Oréal</span>
-          </div>
-        </a>
-      </div>
-
-      <!-- Kiehl's -->
-      <div class="card">
-        <a class="card-link" href="https://www.instagram.com/reel/Cu94chKgEb8/" target="_blank">
-          <div class="thumb" style="background:#2a4e2a;">
-            <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg" alt="Kiehl's" />
-            <div class="badge rose">L'Oréal · Kiehl's</div>
-            <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-          </div>
-          <div class="card-body">
-            <div class="card-title">Kiehl's & Multi-Brand Skincare</div>
-            <div class="card-desc">Featuring Kiehl's alongside other prestige skincare brands — ingredient-forward storytelling that connects product science with daily routine.</div>
-            <span class="card-tag rose">L'Oréal Luxe · Kiehl's</span>
-          </div>
-        </a>
-      </div>
-
-      <!-- GRWM L'Oréal -->
-      <div class="card">
-        <a class="card-link" href="https://www.instagram.com/reel/DPriKHoEvYc/" target="_blank">
-          <div class="thumb" style="background:#3a1a4e;">
-            <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg" alt="GRWM L'Oréal" />
-            <div class="badge rose">GRWM · L'Oréal</div>
-            <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-          </div>
-          <div class="card-body">
-            <div class="card-title">Get Ready With Me — featuring L'Oréal Products</div>
-            <div class="card-desc">A GRWM integrating L'Oréal products into a real-life morning routine — relatable, science-informed beauty content for a mixed lifestyle audience.</div>
-            <span class="card-tag rose">L'Oréal</span>
-          </div>
-        </a>
-      </div>
-
-      <!-- Pixi -->
-      <div class="card">
-        <a class="card-link" href="https://www.instagram.com/reel/DWCdKcjgWr5/" target="_blank">
-          <div class="thumb" style="background:#4e3a1a;">
-            <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg" alt="Pixi Beauty" />
-            <div class="badge">Skincare · Makeup</div>
-            <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-          </div>
-          <div class="card-body">
-            <div class="card-title">Pixi Beauty — Skincare & Makeup</div>
-            <div class="card-desc">General skincare and makeup content featuring Pixi — honest product reviews with a credible, science-informed perspective.</div>
-            <span class="card-tag">Paid Partnership · Pixi</span>
-          </div>
-        </a>
-      </div>
-
-      <!-- Neutrogena -->
-      <div class="card">
-        <a class="card-link" href="https://www.instagram.com/reel/DBBnjOfuZpe/" target="_blank">
-          <div class="thumb" style="background:#1a3a4e;">
-            <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg" alt="Neutrogena" />
-            <div class="badge green">Derma Skincare</div>
-            <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-          </div>
-          <div class="card-body">
-            <div class="card-title">Neutrogena — Dermatologist-Recommended Skincare</div>
-            <div class="card-desc">Content featuring Neutrogena — science-backed, dermatologist-recommended products covered from a credible, chemistry-informed point of view.</div>
-            <span class="card-tag green">Skincare</span>
-          </div>
-        </a>
-      </div>
-
-      <!-- mcobeauty -->
-      <div class="card">
-        <a class="card-link" href="https://www.instagram.com/reel/DItqY6Qsi5H/" target="_blank">
-          <div class="thumb" style="background:#4e1a3a;">
-            <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg" alt="mcobeauty" />
-            <div class="badge">Beauty PR</div>
-            <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-          </div>
-          <div class="card-body">
-            <div class="card-title">mcobeauty — PR Content</div>
-            <div class="card-desc">PR gifting content featuring mcobeauty — authentic, engaged product coverage shared with a loyal and science-curious beauty audience.</div>
-            <span class="card-tag">PR · mcobeauty</span>
-          </div>
-        </a>
-      </div>
-
-    </div>
+<!-- BEAUTY -->
+<div id="beauty" class="section">
+  <div class="section-header">
+    <div class="section-eyebrow">Content Creation</div>
+    <div class="gold-line"></div>
+    <h2 class="section-title">Beauty & Skincare</h2>
+    <p class="section-desc">A PhD chemist's take on beauty — credible ingredient storytelling, honest reviews, and real-life beauty as a scientist and mom. L'Oréal brand content highlighted.</p>
   </div>
+  <div class="grid">
 
-  <!-- ══ BRAND PARTNERSHIPS ══ -->
-  <div id="brands" class="section">
-    <div class="section-label"><span class="section-tag">Brand Partnerships</span><div class="section-line"></div></div>
-    <p class="section-desc">Paid partnerships, formal ambassador programs, and PR collaborations across beauty, tech, education, and retail. L'Oréal brands highlighted in bold.</p>
-
-    <div class="brands-box" style="margin-bottom:32px;">
-      <div class="brand-group">
-        <div class="brand-group-label">Beauty & Skincare — L'Oréal Brands</div>
-        <div class="pills">
-          <span class="pill featured">L'Oréal Paris</span>
-          <span class="pill featured">Kiehl's</span>
-          <span class="pill featured">Lancôme</span>
-          <span class="pill featured">Garnier</span>
-          <span class="pill featured">Maybelline</span>
-          <span class="pill featured">CeraVe</span>
-          <span class="pill featured">Armani Beauty</span>
-          <span class="pill featured">Vichy</span>
+    <div class="card">
+      <a class="card-link" href="https://www.instagram.com/reel/DWJmVbKgPr4/" target="_blank">
+        <div class="thumb">
+          <img src="https://wsrv.nl/?url=instagram.com/p/DWJmVbKgPr4/media/?size=l&output=jpg&w=600&h=338&fit=cover" onerror="this.src='https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg'" alt="Armani Beauty" />
+          <div class="badge gold">L'Oréal · Armani Beauty</div>
+          <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         </div>
-      </div>
-      <div class="brand-group">
-        <div class="brand-group-label">Beauty & Skincare — Independent & Prestige</div>
-        <div class="pills">
-          <span class="pill">Glow Recipe</span>
-          <span class="pill">Glossier</span>
-          <span class="pill">Clinique</span>
-          <span class="pill">bareMinerals</span>
-          <span class="pill">Dossier</span>
-          <span class="pill">Goop</span>
-          <span class="pill">Pixi</span>
-          <span class="pill">Neutrogena</span>
-          <span class="pill">mcobeauty</span>
+        <div class="card-body">
+          <div class="card-title">Armani Beauty</div>
+          <div class="card-desc">Organic content featuring Armani Beauty — luxury beauty storytelling for a science-informed lifestyle audience.</div>
+          <div class="card-tag">L'Oréal Luxe · Organic</div>
         </div>
-      </div>
-      <div class="brand-group">
-        <div class="brand-group-label">Technology & STEM</div>
-        <div class="pills">
-          <span class="pill">Apple</span>
-          <span class="pill">Microsoft</span>
-          <span class="pill">Adobe</span>
-          <span class="pill">Samsung</span>
-          <span class="pill">HP</span>
-          <span class="pill">Dell</span>
-          <span class="pill">Best Buy</span>
-          <span class="pill">TikTok</span>
-          <span class="pill">Chegg</span>
-          <span class="pill">Grammarly</span>
-          <span class="pill">Autonomous</span>
-          <span class="pill">Girls Who Code</span>
-          <span class="pill">3M</span>
-          <span class="pill">Sharpie</span>
-          <span class="pill">Just Papier</span>
-        </div>
-      </div>
-      <div class="brand-group">
-        <div class="brand-group-label">Retail, Lifestyle & Consumer</div>
-        <div class="pills">
-          <span class="pill">Target</span>
-          <span class="pill">Walmart</span>
-          <span class="pill">Walgreens</span>
-          <span class="pill">CVS</span>
-          <span class="pill">Amazon</span>
-          <span class="pill">Etsy</span>
-          <span class="pill">Lulus</span>
-          <span class="pill">Brita</span>
-          <span class="pill">T-Mobile</span>
-          <span class="pill">Calpak</span>
-          <span class="pill">Tailor Brands</span>
-        </div>
-      </div>
+      </a>
     </div>
 
-    <div class="section-label" style="margin-top:40px;"><span class="section-tag">Formal Ambassador Programs</span><div class="section-line"></div></div>
-    <div class="amb-grid">
-      <div class="amb-card"><div class="amb-name">CVS Health</div><div class="amb-desc">Health & wellness — formal ambassador program</div></div>
-      <div class="amb-card"><div class="amb-name">Target</div><div class="amb-desc">Lifestyle & consumer — influencer program</div></div>
-      <div class="amb-card"><div class="amb-name">Walmart</div><div class="amb-desc">Consumer products — brand program</div></div>
-      <div class="amb-card"><div class="amb-name">Amazon</div><div class="amb-desc">Tech & lifestyle — creator program</div></div>
-      <div class="amb-card"><div class="amb-name">TikTok</div><div class="amb-desc">Official creator program — platform partnership</div></div>
-      <div class="amb-card"><div class="amb-name">Microsoft</div><div class="amb-desc">STEM education ambassador</div></div>
-      <div class="amb-card"><div class="amb-name">Etsy</div><div class="amb-desc">Creator affiliate program</div></div>
+    <div class="card">
+      <a class="card-link" href="https://www.instagram.com/reel/DPriKHoEvYc/" target="_blank">
+        <div class="thumb">
+          <img src="https://wsrv.nl/?url=instagram.com/p/DPriKHoEvYc/media/?size=l&output=jpg&w=600&h=338&fit=cover" onerror="this.src='https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg'" alt="GRWM L'Oréal" />
+          <div class="badge gold">GRWM · L'Oréal</div>
+          <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Get Ready With Me — L'Oréal Morning Routine</div>
+          <div class="card-desc">A real GRWM integrating L'Oréal products — relatable, science-informed beauty for a mixed lifestyle audience.</div>
+          <div class="card-tag">L'Oréal · GRWM</div>
+        </div>
+      </a>
     </div>
 
-    <div class="section-label" style="margin-top:40px;"><span class="section-tag">Selected Brand Content</span><div class="section-line"></div></div>
-    <div class="grid">
-      <div class="card">
-        <a class="card-link" href="https://www.instagram.com/reel/DUbJHEZEfhT/" target="_blank">
-          <div class="thumb" style="background:#1a1a1a;">
-            <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_3722-edited.jpg" alt="Apple" />
-            <div class="badge">Apple</div>
-            <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-          </div>
-          <div class="card-body">
-            <div class="card-title">Apple — Tech Content</div>
-            <div class="card-desc">Paid partnership with Apple — technology content for a STEM-educated, productivity-focused audience.</div>
-            <span class="card-tag">Paid · Apple</span>
-          </div>
-        </a>
-      </div>
+    <div class="card">
+      <a class="card-link" href="https://www.instagram.com/reel/DUv0L06kSjQ/" target="_blank">
+        <div class="thumb">
+          <img src="https://wsrv.nl/?url=instagram.com/p/DUv0L06kSjQ/media/?size=l&output=jpg&w=600&h=338&fit=cover" onerror="this.src='https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg'" alt="L'Oréal PR" />
+          <div class="badge gold">L'Oréal PR</div>
+          <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">L'Oréal PR Haul</div>
+          <div class="card-desc">Authentic PR haul reviewing L'Oréal products — a chemist's eye for ingredients and formulation quality.</div>
+          <div class="card-tag">L'Oréal · PR Haul</div>
+        </div>
+      </a>
+    </div>
 
-      <div class="card">
-        <a class="card-link" href="https://www.instagram.com/reel/C502aafAkOd/" target="_blank">
-          <div class="thumb" style="background:#e83030;">
-            <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_3722-edited.jpg" alt="Adobe" />
-            <div class="badge">Adobe</div>
-            <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-          </div>
-          <div class="card-body">
-            <div class="card-title">Adobe — Creative Tools for STEM Students</div>
-            <div class="card-desc">Paid collaboration with Adobe — connecting creative software to real-world STEM and science communication workflows.</div>
-            <span class="card-tag">Paid · Adobe</span>
-          </div>
-        </a>
-      </div>
+    <div class="card">
+      <a class="card-link" href="https://www.instagram.com/reel/DT3e2LZEudW/" target="_blank">
+        <div class="thumb">
+          <img src="https://wsrv.nl/?url=instagram.com/p/DT3e2LZEudW/media/?size=l&output=jpg&w=600&h=338&fit=cover" onerror="this.src='https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg'" alt="L'Oréal New Launches" />
+          <div class="badge gold">L'Oréal PR</div>
+          <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">L'Oréal — New Launches</div>
+          <div class="card-desc">First-look content on L'Oréal new launches — shared across feed and stories to an engaged science and beauty audience.</div>
+          <div class="card-tag">L'Oréal · New Launch</div>
+        </div>
+      </a>
+    </div>
 
-      <div class="card">
-        <a class="card-link" href="https://www.instagram.com/reel/C_RJ3mxSnHR/" target="_blank">
-          <div class="thumb" style="background:#2a2a2a;">
-            <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_3722-edited.jpg" alt="Apple iMac" />
-            <div class="badge">Apple iMac</div>
-            <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-          </div>
-          <div class="card-body">
-            <div class="card-title">Apple iMac — PR Content</div>
-            <div class="card-desc">PR content featuring the Apple iMac — organic coverage integrated into a scientist's real workspace and productivity routine.</div>
-            <span class="card-tag">PR · Apple</span>
-          </div>
-        </a>
-      </div>
+    <div class="card">
+      <a class="card-link" href="https://www.instagram.com/reel/DS56dJxEl1x/" target="_blank">
+        <div class="thumb">
+          <img src="https://wsrv.nl/?url=instagram.com/p/DS56dJxEl1x/media/?size=l&output=jpg&w=600&h=338&fit=cover" onerror="this.src='https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg'" alt="L'Oréal PR 3" />
+          <div class="badge gold">L'Oréal PR</div>
+          <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">L'Oréal — Product Stories</div>
+          <div class="card-desc">Ongoing L'Oréal PR content woven naturally into a lifestyle and science mix.</div>
+          <div class="card-tag">L'Oréal · PR</div>
+        </div>
+      </a>
+    </div>
 
-      <div class="card">
-        <a class="card-link" href="https://www.instagram.com/reel/C2BfGnyAOCY/" target="_blank">
-          <div class="thumb" style="background:#1a4e2a;">
-            <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_3722-edited.jpg" alt="Sharpie" />
-            <div class="badge">Sharpie</div>
-            <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-          </div>
-          <div class="card-body">
-            <div class="card-title">Sharpie — Study & Productivity Content</div>
-            <div class="card-desc">Partnership with Sharpie — study tips and productivity content for a student and STEM-focused audience.</div>
-            <span class="card-tag">Paid · Sharpie</span>
-          </div>
-        </a>
+    <div class="card">
+      <a class="card-link" href="https://www.instagram.com/reel/DRiHNWrkui5/" target="_blank">
+        <div class="thumb">
+          <img src="https://wsrv.nl/?url=instagram.com/p/DRiHNWrkui5/media/?size=l&output=jpg&w=600&h=338&fit=cover" onerror="this.src='https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg'" alt="L'Oréal PR 4" />
+          <div class="badge gold">L'Oréal PR</div>
+          <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">L'Oréal — Skincare & Beauty</div>
+          <div class="card-desc">Product content integrating L'Oréal skincare into a real scientist's daily life — credible, authentic, and relatable.</div>
+          <div class="card-tag">L'Oréal · PR</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="card">
+      <a class="card-link" href="https://www.instagram.com/reel/Cu94chKgEb8/" target="_blank">
+        <div class="thumb">
+          <img src="https://wsrv.nl/?url=instagram.com/p/Cu94chKgEb8/media/?size=l&output=jpg&w=600&h=338&fit=cover" onerror="this.src='https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg'" alt="Kiehl's" />
+          <div class="badge gold">L'Oréal · Kiehl's</div>
+          <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Kiehl's & Multi-Brand Skincare</div>
+          <div class="card-desc">Ingredient-forward content connecting product science with daily skincare routine.</div>
+          <div class="card-tag">L'Oréal Luxe · Kiehl's</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="card">
+      <a class="card-link" href="https://www.instagram.com/reel/DWCdKcjgWr5/" target="_blank">
+        <div class="thumb">
+          <img src="https://wsrv.nl/?url=instagram.com/p/DWCdKcjgWr5/media/?size=l&output=jpg&w=600&h=338&fit=cover" onerror="this.src='https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg'" alt="Pixi" />
+          <div class="badge">Skincare · Makeup</div>
+          <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Pixi Beauty</div>
+          <div class="card-desc">Honest skincare and makeup reviews with a credible, science-informed perspective.</div>
+          <div class="card-tag">Paid Partnership · Pixi</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="card">
+      <a class="card-link" href="https://www.instagram.com/reel/DBBnjOfuZpe/" target="_blank">
+        <div class="thumb">
+          <img src="https://wsrv.nl/?url=instagram.com/p/DBBnjOfuZpe/media/?size=l&output=jpg&w=600&h=338&fit=cover" onerror="this.src='https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg'" alt="Neutrogena" />
+          <div class="badge">Derma Skincare</div>
+          <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Neutrogena — Dermatologist-Recommended</div>
+          <div class="card-desc">Science-backed skincare from a chemistry-informed perspective — endorsement that resonates with ingredient-literate consumers.</div>
+          <div class="card-tag">Skincare · Neutrogena</div>
+        </div>
+      </a>
+    </div>
+
+    <div class="card">
+      <a class="card-link" href="https://www.instagram.com/reel/DItqY6Qsi5H/" target="_blank">
+        <div class="thumb">
+          <img src="https://wsrv.nl/?url=instagram.com/p/DItqY6Qsi5H/media/?size=l&output=jpg&w=600&h=338&fit=cover" onerror="this.src='https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg'" alt="mcobeauty" />
+          <div class="badge">Beauty PR</div>
+          <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">mcobeauty — PR Content</div>
+          <div class="card-desc">PR content shared with a loyal science-curious beauty audience — authentic product coverage with genuine engagement.</div>
+          <div class="card-tag">PR · mcobeauty</div>
+        </div>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<!-- BRANDS -->
+<div id="brands" class="section">
+  <div class="section-header">
+    <div class="section-eyebrow">Collaborations</div>
+    <div class="gold-line"></div>
+    <h2 class="section-title">Brand Partnerships</h2>
+    <p class="section-desc">Paid partnerships, formal ambassador programs, and PR collaborations across beauty, tech, education, and retail. L'Oréal brands highlighted.</p>
+  </div>
+  <div class="brands-box">
+    <div class="brand-group">
+      <div class="brand-group-label">Beauty & Skincare — L'Oréal Portfolio</div>
+      <div class="pills">
+        <span class="pill featured">L'Oréal Paris</span><span class="pill featured">Kiehl's</span>
+        <span class="pill featured">Lancôme</span><span class="pill featured">Garnier</span>
+        <span class="pill featured">Maybelline</span><span class="pill featured">CeraVe</span>
+        <span class="pill featured">Armani Beauty</span><span class="pill featured">Vichy</span>
+      </div>
+    </div>
+    <div class="brand-group">
+      <div class="brand-group-label">Beauty & Skincare — Independent & Prestige</div>
+      <div class="pills">
+        <span class="pill">Glow Recipe</span><span class="pill">Glossier</span><span class="pill">Clinique</span>
+        <span class="pill">bareMinerals</span><span class="pill">Dossier</span><span class="pill">Goop</span>
+        <span class="pill">Pixi</span><span class="pill">Neutrogena</span><span class="pill">mcobeauty</span>
+      </div>
+    </div>
+    <div class="brand-group">
+      <div class="brand-group-label">Technology & STEM</div>
+      <div class="pills">
+        <span class="pill">Apple</span><span class="pill">Microsoft</span><span class="pill">Adobe</span>
+        <span class="pill">Samsung</span><span class="pill">HP</span><span class="pill">Dell</span>
+        <span class="pill">Best Buy</span><span class="pill">TikTok</span><span class="pill">Chegg</span>
+        <span class="pill">Grammarly</span><span class="pill">Autonomous</span><span class="pill">Girls Who Code</span>
+        <span class="pill">3M</span><span class="pill">Sharpie</span><span class="pill">Just Papier</span>
+      </div>
+    </div>
+    <div class="brand-group">
+      <div class="brand-group-label">Retail, Lifestyle & Consumer</div>
+      <div class="pills">
+        <span class="pill">Target</span><span class="pill">Walmart</span><span class="pill">Walgreens</span>
+        <span class="pill">CVS</span><span class="pill">Amazon</span><span class="pill">Etsy</span>
+        <span class="pill">Lulus</span><span class="pill">Brita</span><span class="pill">T-Mobile</span>
+        <span class="pill">Calpak</span><span class="pill">Tailor Brands</span>
       </div>
     </div>
   </div>
 
-  <!-- ══ SPEAKING ══ -->
-  <div id="speaking" class="section">
-    <div class="section-label"><span class="section-tag">Speaking & Media</span><div class="section-line"></div></div>
-    <p class="section-desc">Invited scientist, speaker, and panelist — communicating science, STEM pathways, and the experience of being a first-generation Latina scientist and mom at major academic and public venues.</p>
+  <div class="sub-label">Formal Ambassador Programs</div>
+  <div class="amb-grid">
+    <div class="amb-card"><div class="amb-name">CVS Health</div><div class="amb-desc">Health & wellness — formal ambassador program</div></div>
+    <div class="amb-card"><div class="amb-name">Target</div><div class="amb-desc">Lifestyle & consumer — influencer program</div></div>
+    <div class="amb-card"><div class="amb-name">Walmart</div><div class="amb-desc">Consumer products — brand program</div></div>
+    <div class="amb-card"><div class="amb-name">Amazon</div><div class="amb-desc">Tech & lifestyle — creator program</div></div>
+    <div class="amb-card"><div class="amb-name">TikTok</div><div class="amb-desc">Official creator program — platform partnership</div></div>
+    <div class="amb-card"><div class="amb-name">Microsoft</div><div class="amb-desc">STEM education ambassador</div></div>
+    <div class="amb-card"><div class="amb-name">Etsy</div><div class="amb-desc">Creator affiliate program</div></div>
+  </div>
 
-    <div class="speaking-list">
-      <div class="speaking-item">
-        <div class="speaking-icon">📺</div>
-        <div>
-          <div class="speaking-title">CBS Mission Unstoppable — Featured Scientist</div>
-          <div class="speaking-desc">National TV and digital series (produced with IF/THEN She Can) — explained the molecular science of crystal nucleation and snowflake formation to a broad public audience. Two segments produced.</div>
-          <a class="speaking-link" href="https://www.tiktok.com/@cbsunstoppable/video/7154530300410842414" target="_blank">Watch on TikTok →</a>
+  <div class="sub-label">Selected Brand Content</div>
+  <div class="grid">
+    <div class="card">
+      <a class="card-link" href="https://www.instagram.com/reel/DUbJHEZEfhT/" target="_blank">
+        <div class="thumb">
+          <img src="https://wsrv.nl/?url=instagram.com/p/DUbJHEZEfhT/media/?size=l&output=jpg&w=600&h=338&fit=cover" onerror="this.src='https://fernandasulantay.com/wp-content/uploads/2024/11/img_3722-edited.jpg'" alt="Apple" />
+          <div class="badge">Apple</div>
+          <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         </div>
+        <div class="card-body">
+          <div class="card-title">Apple — Tech Content</div>
+          <div class="card-desc">Paid partnership — technology content for a STEM-educated, productivity-focused audience.</div>
+          <div class="card-tag">Paid · Apple</div>
+        </div>
+      </a>
+    </div>
+    <div class="card">
+      <a class="card-link" href="https://www.instagram.com/reel/C502aafAkOd/" target="_blank">
+        <div class="thumb">
+          <img src="https://wsrv.nl/?url=instagram.com/p/C502aafAkOd/media/?size=l&output=jpg&w=600&h=338&fit=cover" onerror="this.src='https://fernandasulantay.com/wp-content/uploads/2024/11/img_3722-edited.jpg'" alt="Adobe" />
+          <div class="badge">Adobe</div>
+          <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Adobe — Creative Tools for STEM</div>
+          <div class="card-desc">Connecting Adobe's creative tools to real-world science communication and student workflows.</div>
+          <div class="card-tag">Paid · Adobe</div>
+        </div>
+      </a>
+    </div>
+    <div class="card">
+      <a class="card-link" href="https://www.instagram.com/reel/C2BfGnyAOCY/" target="_blank">
+        <div class="thumb">
+          <img src="https://wsrv.nl/?url=instagram.com/p/C2BfGnyAOCY/media/?size=l&output=jpg&w=600&h=338&fit=cover" onerror="this.src='https://fernandasulantay.com/wp-content/uploads/2024/11/img_3722-edited.jpg'" alt="Sharpie" />
+          <div class="badge">Sharpie</div>
+          <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Sharpie — Study & Productivity</div>
+          <div class="card-desc">Study tips and productivity content for a student and STEM-focused audience.</div>
+          <div class="card-tag">Paid · Sharpie</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- SPEAKING -->
+<div id="speaking" class="section">
+  <div class="section-header">
+    <div class="section-eyebrow">Speaking & Outreach</div>
+    <div class="gold-line"></div>
+    <h2 class="section-title">Speaking & Events</h2>
+    <p class="section-desc">Invited scientist, keynote speaker, and panelist — on STEM pathways, science communication, and the experience of being a first-generation Latina scientist and mom.</p>
+  </div>
+
+  <div class="upcoming-tag">Upcoming Events</div>
+  <div class="events-list">
+    <div class="event-item">
+      <div class="event-date event-upcoming">Feb 2025</div>
+      <div><div class="event-name">Latina Empowerment and Development (LEAD) Conference</div><div class="event-role">STEM Panel Speaker</div><div class="event-location">Harvard University — Cambridge, MA, USA</div></div>
+    </div>
+    <div class="event-item">
+      <div class="event-date event-upcoming">July 2026</div>
+      <div><div class="event-name">InspiraSTEM 2026</div><div class="event-role">Co-Founder & Speaker</div><div class="event-location">UCA — El Salvador</div></div>
+    </div>
+    <div class="event-item">
+      <div class="event-date event-upcoming">Oct 2026</div>
+      <div><div class="event-name">SHPE 2026 National Conference</div><div class="event-role">Content Creator & Speaker</div><div class="event-location">Indianapolis, IN, USA</div></div>
+    </div>
+  </div>
+
+  <div class="sub-label">Past Events</div>
+  <div class="events-list">
+    <div class="event-item"><div class="event-date">Nov 2025</div><div><div class="event-name">SHPE 2025 National Conference</div><div class="event-role">Content Creator & Panelist</div><div class="event-location">Philadelphia, PA, USA</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2026/02/img_8877-edited-1.jpg" alt="SHPE 2025" /></div></div></div>
+    <div class="event-item"><div class="event-date">July 2025</div><div><div class="event-name">InspiraSTEM 2025 Conference</div><div class="event-role">Co-Founder, Speaker & Instructor</div><div class="event-location">Key Institute — El Salvador</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2026/02/inspirastem3-48.jpg" alt="InspiraSTEM 2025" /></div></div></div>
+    <div class="event-item"><div class="event-date">April 2025</div><div><div class="event-name">ALPFA Leadership Summit</div><div class="event-role">Panelist</div><div class="event-location">Columbia University — New York, NY, USA</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2025/05/img_4010.jpg" alt="ALPFA" /></div></div></div>
+    <div class="event-item"><div class="event-date">March 2025</div><div><div class="event-name">My Journey as a Scientist and Woman in STEM: from El Salvador to Yale</div><div class="event-role">Keynote Speaker</div><div class="event-location">Universidad Don Bosco — El Salvador</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2025/05/img_8996-edited.png" alt="Don Bosco" /></div></div></div>
+    <div class="event-item"><div class="event-date">March 2025</div><div><div class="event-name">My Journey as a Scientist and Woman in STEM: from El Salvador to Yale</div><div class="event-role">Keynote Speaker</div><div class="event-location">Universidad Centroamericana José Simeón Cañas — El Salvador</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2025/05/ponencia_fernanda_sulantay-62.jpeg" alt="UCA" /></div></div></div>
+    <div class="event-item"><div class="event-date">Feb 2025</div><div><div class="event-name">LEAD 2025 Conference — "Digital Story: Creative Media"</div><div class="event-role">Panelist</div><div class="event-location">Harvard University — Cambridge, MA, USA</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2025/05/dsc00585-edited.jpg" alt="LEAD Harvard" /></div></div></div>
+    <div class="event-item"><div class="event-date">Feb 2025</div><div><div class="event-name">AIChE Seminar — Effective Personal Branding for Engineers</div><div class="event-role">Panelist</div><div class="event-location">Online</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2025/05/aiche_onlineseminar_picture.png" alt="AIChE Seminar" /></div></div></div>
+    <div class="event-item"><div class="event-date">Oct 2024</div><div><div class="event-name">SHPE 2024 National Conference</div><div class="event-role">"#STEMStars: Hispanic Creators Shaping the Future" Panelist & Content Creator</div><div class="event-location">Anaheim, CA, USA</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/11/ff8af093-1afe-4344-bfb6-610ae646c1bb-edited.jpg" alt="SHPE 2024" /></div></div></div>
+    <div class="event-item"><div class="event-date">Oct 2024</div><div><div class="event-name">AIChE Annual Student Conference</div><div class="event-role">"Leadership in Chemical Engineering" Panelist</div><div class="event-location">San Diego, CA, USA</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_fb087f08a622-1-edited.jpeg" alt="AIChE 2024" /></div></div></div>
+    <div class="event-item"><div class="event-date">Oct 2024</div><div><div class="event-name">CIMAT 2024 Conference</div><div class="event-role">Speaker</div><div class="event-location">El Salvador</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/11/fernanda.jpg" alt="CIMAT 2024" /></div></div></div>
+    <div class="event-item"><div class="event-date">May 2024</div><div><div class="event-name">EmpowerMinds STEM / Mental Health Summit</div><div class="event-role">Content Creator, Speaker & Event Facilitator</div><div class="event-location">Decker Middle School — Austin, TX (Generation Pionera & Whisker Technologies)</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/05/img_3733-edited.jpg" alt="EmpowerMinds" /></div></div></div>
+    <div class="event-item"><div class="event-date">April 2024</div><div><div class="event-name">Women in Engineering Gala — SWE</div><div class="event-role">Panelist</div><div class="event-location">Yale University — New Haven, CT, USA</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/05/swe-gala-010-edited.jpg" alt="SWE Gala" /></div></div></div>
+    <div class="event-item"><div class="event-date">Nov 2023</div><div><div class="event-name">SHPE 2023 National Convention</div><div class="event-role">"Socializing STEM and Engineering Your Future" Panelist & Content Creator</div><div class="event-location">Salt Lake City, UT, USA</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/05/img_3737-edited.jpg" alt="SHPE 2023" /></div></div></div>
+    <div class="event-item"><div class="event-date">Oct 2023</div><div><div class="event-name">International Latina Engineer Week</div><div class="event-role">Keynote Speaker</div><div class="event-location">University of Illinois Chicago — Chicago, IL, USA</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/05/img_5592.jpg" alt="Latina Engineer Week" /></div></div></div>
+    <div class="event-item"><div class="event-date">March 2023</div><div><div class="event-name">New England Promise High School Regional Science Bowl</div><div class="event-role">Keynote Speaker & Panelist</div><div class="event-location">University of Connecticut — Storrs, CT, USA</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/05/b7c82253-4a81-4935-8e57-4cc4f957ead1.jpg" alt="Science Bowl" /></div></div></div>
+    <div class="event-item"><div class="event-date">Feb 2023</div><div><div class="event-name">Harvard WeCode 2023 Conference</div><div class="event-role">"Social Media" Panelist</div><div class="event-location">Harvard University — Cambridge, MA, USA</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/05/img_5001-edited.jpg" alt="WeCode 2023" /></div></div></div>
+    <div class="event-item"><div class="event-date">Nov 2022</div><div><div class="event-name">SHPE 2022 National Convention</div><div class="event-role">"Fearlessly Building a Brand" Panelist & Content Creator</div><div class="event-location">Charlotte, NC, USA</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/05/img_3735-edited.jpg" alt="SHPE 2022" /></div></div></div>
+    <div class="event-item"><div class="event-date">Oct 2021</div><div><div class="event-name">Empowered Engineers Challenge</div><div class="event-role">Conference Co-Founder & Keynote Speaker</div><div class="event-location">Online</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/05/img_1255-edited.jpg" alt="Empowered Engineers" /></div></div></div>
+  </div>
+</div>
+
+<!-- MEDIA & PRESS -->
+<div id="media" class="section">
+  <div class="section-header">
+    <div class="section-eyebrow">Press & Features</div>
+    <div class="gold-line"></div>
+    <h2 class="section-title">Media & Press</h2>
+    <p class="section-desc">Featured in academic spotlights, national media, and science publications — spanning Yale, AIChE, UConn, Manchester Community College, and beyond.</p>
+  </div>
+
+  <div class="media-section">
+    <div class="media-section-title">Press & Institutional Features</div>
+    <div class="press-list">
+      <a class="press-item" href="https://www.instagram.com/p/C3_FAgORyzC/" target="_blank"><div class="press-dot"></div><div class="press-content"><div class="press-title">Yale Engineering Spotlight: Fernanda S. Vargas, PhD Student in CEE</div><div class="press-source">Yale School of Engineering & Applied Science</div></div><div class="press-arrow">→</div></a>
+      <a class="press-item" href="https://www.aiche.org/chenected/2023/05/long-road-yale" target="_blank"><div class="press-dot"></div><div class="press-content"><div class="press-title">AIChE Chemical Engineer Spotlight: A Long Road to Yale</div><div class="press-source">AIChE ChEnected</div></div><div class="press-arrow">→</div></a>
+      <a class="press-item" href="http://today.uconn.edu/2021/04/students-earn-national-science-foundation-graduate-research-fellowships/" target="_blank"><div class="press-dot"></div><div class="press-content"><div class="press-title">Students Earn National Science Foundation Graduate Research Fellowships</div><div class="press-source">UConn University Communications</div></div><div class="press-arrow">→</div></a>
+      <a class="press-item" href="https://seniors.uconn.edu/2020/05/07/fernandasulantay/" target="_blank"><div class="press-dot"></div><div class="press-content"><div class="press-title">UConn Senior Spotlight: Fernanda Sulantay '20</div><div class="press-source">University of Connecticut</div></div><div class="press-arrow">→</div></a>
+      <a class="press-item" href="https://www.manchestercc.edu/alumni-success-fernanda-sulantay-vargas-17-rises-from-esl-to-ph-d-candidate-at-yale/" target="_blank"><div class="press-dot"></div><div class="press-content"><div class="press-title">MCC Alumni Success: Fernanda Sulantay Vargas '17 Rises From ESL to PhD Candidate at Yale</div><div class="press-source">Manchester Community College</div></div><div class="press-arrow">→</div></a>
+      <a class="press-item" href="https://www.manchestercc.edu/alumni-success-pena-sulantay-finds-direction-inspiration-mcc/" target="_blank"><div class="press-dot"></div><div class="press-content"><div class="press-title">MCC Alumni Success: Pena-Sulantay Finds Direction and Inspiration at MCC</div><div class="press-source">Manchester Community College</div></div><div class="press-arrow">→</div></a>
+      <a class="press-item" href="https://www.manchestercc.edu/two-mcc-students-make-connecticut-academic-team/" target="_blank"><div class="press-dot"></div><div class="press-content"><div class="press-title">Two MCC Students Make All-Connecticut Academic Team</div><div class="press-source">Manchester Community College</div></div><div class="press-arrow">→</div></a>
+    </div>
+  </div>
+
+  <div class="media-section">
+    <div class="media-section-title">Articles & Written Features</div>
+    <div class="press-list">
+      <a class="press-item" href="https://www.seeitbeitstemit.com/get-inspired/meet-fernanda-sulantay" target="_blank"><div class="press-dot"></div><div class="press-content"><div class="press-title">Meet Fernanda Sulantay</div><div class="press-source">See it, Be it, STEM it — Engineering Article</div></div><div class="press-arrow">→</div></a>
+      <a class="press-item" href="https://women-of-stem.medium.com/opening-doors-for-future-generations-fernanda-sulantay-2969395568dc" target="_blank"><div class="press-dot"></div><div class="press-content"><div class="press-title">Women of STEM: Opening Doors for Future Generations</div><div class="press-source">Women of STEM — Medium</div></div><div class="press-arrow">→</div></a>
+    </div>
+  </div>
+
+  <div class="media-section">
+    <div class="media-section-title">Video Features</div>
+    <div class="press-list">
+      <a class="press-item" href="https://www.youtube.com/watch?v=Y4PRSXzhFM4" target="_blank"><div class="press-dot"></div><div class="press-content"><div class="press-title">#IAmMoreThan Conversation with Yale Chemical Engineering PhD Student Fernanda Sulantay</div><div class="press-source">Jay Flores — YouTube</div></div><div class="press-arrow">→</div></a>
+      <a class="press-item" href="https://www.youtube.com/watch?v=JV2qWh84PXw" target="_blank"><div class="press-dot"></div><div class="press-content"><div class="press-title">Modern Immigrant: Latina Immigrant, Mom and Yale PhD Student Fernanda Sulantay</div><div class="press-source">Modern Immigrant Podcast — YouTube</div></div><div class="press-arrow">→</div></a>
+      <a class="press-item" href="https://www.youtube.com/watch?v=zZdk9rQU9fw" target="_blank"><div class="press-dot"></div><div class="press-content"><div class="press-title">Chemistry Conference: Chemical Engineering with Fernanda Sulantay</div><div class="press-source">ScienceHolic — YouTube</div></div><div class="press-arrow">→</div></a>
+    </div>
+  </div>
+</div>
+
+<!-- PODCASTS -->
+<div id="podcasts" class="section">
+  <div class="section-header">
+    <div class="section-eyebrow">Audio & Podcast</div>
+    <div class="gold-line"></div>
+    <h2 class="section-title">Podcast Episodes</h2>
+    <p class="section-desc">From children's science to conversations about immigration, motherhood, and building a scientific career — in English and Spanish.</p>
+  </div>
+
+  <div class="sub-label">Science Communication</div>
+  <div class="grid-2" style="margin-bottom:40px;">
+    <div class="pod-card">
+      <div class="pod-icon">🔬</div>
+      <div>
+        <div class="pod-show">Orbit Podcast · English</div>
+        <div class="pod-title">The Building Blocks of the Universe</div>
+        <div class="pod-desc">A children's science podcast episode breaking down atomic theory and molecular concepts for young listeners — making the microscopic world tangible and exciting.</div>
+        <a class="pod-btn" href="https://podcasts.apple.com/us/podcast/the-building-blocks-of-the-universe/id1839825654?i=1000747853528" target="_blank">Listen on Apple Podcasts</a>
       </div>
-      <div class="speaking-item">
-        <div class="speaking-icon">🎓</div>
-        <div>
-          <div class="speaking-title">Harvard University — Invited Speaker</div>
-          <div class="speaking-desc">Presented on STEM pathways for underrepresented students, women, and first-generation scientists at Harvard University.</div>
-        </div>
-      </div>
-      <div class="speaking-item">
-        <div class="speaking-icon">⚗️</div>
-        <div>
-          <div class="speaking-title">AIChE Annual Meeting — Poster & Oral Presenter</div>
-          <div class="speaking-desc">Presented computational nucleation research at AIChE Annual Meeting (San Diego, 2024) and FOMMS (Snowbird, UT, 2024). Connected with industry scientists and researchers.</div>
-        </div>
-      </div>
-      <div class="speaking-item">
-        <div class="speaking-icon">🌎</div>
-        <div>
-          <div class="speaking-title">SHPE, WeCode & UNC Chapel Hill — Speaker & Panelist</div>
-          <div class="speaking-desc">Speaker at SHPE National Conference, WeCode, and UNC Chapel Hill Carolina Latinx Center Atlas Speaker Series (2026) — presenting on STEM pathways for Latina women, mothers, and underrepresented students.</div>
-        </div>
-      </div>
-      <div class="speaking-item">
-        <div class="speaking-icon">🇸🇻</div>
-        <div>
-          <div class="speaking-title">InspiraSTEM El Salvador — Founder & Conference Lead</div>
-          <div class="speaking-desc">Founded and runs an annual STEM conference and summer school in El Salvador. Partnered with the Ministries of Economy and Foreign Affairs and the Presidential Delegation to expand national STEM education.</div>
-          <a class="speaking-link" href="https://www.instagram.com/reel/DKACXfzgJOd/" target="_blank">See event content →</a>
-        </div>
-      </div>
-      <div class="speaking-item">
-        <div class="speaking-icon">🏛️</div>
-        <div>
-          <div class="speaking-title">CT Office of Manufacturing — Science Outreach Partner</div>
-          <div class="speaking-desc">Collaborated with the Connecticut Office of Manufacturing on STEM outreach content promoting engineering and manufacturing careers.</div>
-          <a class="speaking-link" href="https://www.instagram.com/reel/DLGG4U1Sxj0/" target="_blank">Watch content →</a>
-        </div>
+    </div>
+    <div class="pod-card">
+      <div class="pod-icon">🔬</div>
+      <div>
+        <div class="pod-show">Cráneo Podcast · Español</div>
+        <div class="pod-title">Los Bloques del Universo</div>
+        <div class="pod-desc">The same children's science episode in Spanish — bilingual science communication making molecular science accessible to Spanish-speaking young audiences globally.</div>
+        <a class="pod-btn" href="https://open.spotify.com/episode/4syw4LvaEvOmyAwKzUqkTl" target="_blank">Listen on Spotify</a>
       </div>
     </div>
   </div>
 
-  <!-- ══ PODCASTS ══ -->
-  <div id="podcasts" class="section">
-    <div class="section-label"><span class="section-tag">Podcasts</span><div class="section-line"></div></div>
-    <p class="section-desc">Science for all ages, in two languages. Explaining atoms to kids, crystal nucleation to curious adults, and the scientist's life to anyone who'll listen.</p>
-
-    <div class="grid-2">
-      <div class="card">
-        <div class="podcast-card" style="border:none; box-shadow:none; padding:0; background:none;">
-          <div class="podcast-icon">🎙️</div>
-          <div>
-            <div class="podcast-title">The Building Blocks of the Universe (English)</div>
-            <div class="podcast-desc">A children's science podcast episode breaking down atomic theory and molecular concepts for young listeners — making the microscopic world tangible and exciting. Produced with SHPE.</div>
-            <a class="podcast-listen" href="https://podcasts.apple.com/us/podcast/the-building-blocks-of-the-universe/id1839825654?i=1000747853528" target="_blank">Listen on Apple Podcasts →</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="podcast-card" style="border:none; box-shadow:none; padding:0; background:none;">
-          <div class="podcast-icon">🎙️</div>
-          <div>
-            <div class="podcast-title">Los Bloques del Universo (Español)</div>
-            <div class="podcast-desc">The same kids science episode in Spanish — breaking down atoms and molecular structure for Spanish-speaking young audiences. Bilingual science communication for a global community.</div>
-            <a class="podcast-listen" href="https://open.spotify.com/episode/4syw4LvaEvOmyAwKzUqkTl" target="_blank">Listen on Spotify →</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div style="margin-top:32px;">
-      <div class="section-label"><span class="section-tag">Podcast Promo Content</span><div class="section-line"></div></div>
-      <div class="grid">
-        <div class="card">
-          <a class="card-link" href="https://www.instagram.com/reel/DUXF1FaDJZ5/" target="_blank">
-            <div class="thumb" style="background:#1a2e4e;">
-              <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/ff8af093-1afe-4344-bfb6-610ae646c1bb-edited-1.jpg" alt="Kids Podcast Promo" />
-              <div class="badge">Instagram Promo</div>
-              <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-            </div>
-            <div class="card-body">
-              <div class="card-title">Kids Science Podcast — Instagram Promo</div>
-              <div class="card-desc">Promoting the children's science podcast on Instagram — reaching a parent and educator audience alongside the core STEM community.</div>
-              <span class="card-tag">SHPE · Science Kids</span>
-            </div>
-          </a>
-        </div>
-      </div>
-    </div>
+  <div class="sub-label">Guest Appearances</div>
+  <div class="press-list">
+    <a class="press-item" href="https://podcasts.apple.com/tw/podcast/50-stories-for-50-years-story-20-fernanda-sulantay/id1640180728?i=1000656411279" target="_blank"><div class="press-dot"></div><div class="press-content"><div class="press-title">Story #20: Fernanda Sulantay & Sonia Camacho — Influencing STEM and Beyond</div><div class="press-source">50 Stories for 50 Years — SHPE Podcast</div></div><div class="press-arrow">→</div></a>
+    <a class="press-item" href="https://engineeringourfuture.substack.com/p/067-mom-first-generation-student-dd6" target="_blank"><div class="press-dot"></div><div class="press-content"><div class="press-title">067 // Mom, First Generation Student, and PhD Student with Fernanda Sulantay</div><div class="press-source">Engineering Our Future Podcast</div></div><div class="press-arrow">→</div></a>
+    <a class="press-item" href="https://podcasters.spotify.com/pod/show/engineeringgals/episodes/Ep12-Immigrating--Pursuing-a-PhD-with-Fernanda-Sulantay-eqf0f2/a-a4lac39" target="_blank"><div class="press-dot"></div><div class="press-content"><div class="press-title">Ep12: Immigrating & Pursuing a PhD with Fernanda Sulantay</div><div class="press-source">Gals Chat by Engineering Gals</div></div><div class="press-arrow">→</div></a>
+    <a class="press-item" href="https://podcasters.spotify.com/pod/show/sonia-camacho59/episodes/Episode-4-Fernanda-Sulantay-e1u42c6/a-a98cj3k" target="_blank"><div class="press-dot"></div><div class="press-content"><div class="press-title">Episode 4: Fernanda Sulantay</div><div class="press-source">Cuéntame con Sonia Camacho</div></div><div class="press-arrow">→</div></a>
   </div>
+</div>
 
 </div>
 
