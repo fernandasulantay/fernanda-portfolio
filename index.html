@@ -110,8 +110,23 @@
   .event-name { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 600; color: var(--ink); margin-bottom: 4px; line-height: 1.3; }
   .event-role { font-size: 12px; font-weight: 500; color: var(--gold); margin-bottom: 4px; font-style: italic; }
   .event-location { font-size: 12px; color: var(--muted); font-weight: 300; }
-  .event-photo { margin-top: 14px; border-radius: 2px; overflow: hidden; max-height: 220px; }
-  .event-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* ── EVENT PHOTO: fixed square-ish, not full-width ── */
+  .event-photo {
+    margin-top: 14px;
+    border-radius: 2px;
+    overflow: hidden;
+    width: 100%;           /* fills the right column */
+    max-width: 420px;      /* caps it on desktop so it doesn't stretch too wide */
+    aspect-ratio: 4 / 3;  /* slightly wider than square, much shorter than before */
+  }
+  .event-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top; /* favour faces/subjects at top */
+    display: block;
+  }
 
   /* MEDIA / PRESS */
   .media-section { margin-bottom: 48px; }
@@ -152,11 +167,25 @@
   .amb-desc { font-size: 12px; color: var(--muted); line-height: 1.5; font-weight: 300; }
   .sub-label { font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin: 48px 0 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
 
+  /* ── THUMBNAIL PLACEHOLDER shown while img loads / on error ── */
+  .thumb-placeholder {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, var(--hero-dark) 0%, var(--hero-mid) 100%);
+    gap: 10px;
+  }
+  .thumb-placeholder svg { width: 32px; height: 32px; fill: none; stroke: var(--gold); stroke-width: 1.5; opacity: .7; }
+  .thumb-placeholder span { font-size: 11px; color: var(--gold-light); opacity: .6; letter-spacing: 1px; text-transform: uppercase; }
+  /* hide placeholder once real image loads */
+  .thumb img.loaded + .thumb-placeholder,
+  .thumb img.loaded ~ .thumb-placeholder { display: none; }
+
   @media (max-width: 580px) {
     .grid, .grid-2 { grid-template-columns: 1fr; }
     .amb-grid { grid-template-columns: 1fr 1fr; }
     .event-item { grid-template-columns: 1fr; gap: 6px; }
     .pod-card { flex-direction: column; }
+    .event-photo { max-width: 100%; }
   }
 </style>
 </head>
@@ -194,7 +223,9 @@
 
 <div class="main">
 
-<!-- SCIENCE -->
+<!-- ═══════════════════════════════════════════
+     SCIENCE COMMUNICATION
+═══════════════════════════════════════════ -->
 <div id="science" class="section active">
   <div class="section-header">
     <div class="section-eyebrow">Content Creation</div>
@@ -203,24 +234,36 @@
     <p class="section-desc">PhD chemical engineer translating science for everyone.</p>
   </div>
   <div class="grid">
+
+    <!-- FIX: Featured CBS TikTok — use your own site photo as primary, TikTok as link -->
     <div class="card card-featured">
       <a class="card-link" href="https://www.tiktok.com/@cbsunstoppable/video/7154530300410842414" target="_blank">
         <div class="thumb">
-          <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/2u1a1318-edited.jpg" alt="CBS Mission Unstoppable" />
-          <div class="badge gold">Tiktok</div>
+          <img
+            src="https://fernandasulantay.com/wp-content/uploads/2024/11/2u1a1318-edited.jpg"
+            alt="CBS Mission Unstoppable"
+            loading="lazy"
+          />
+          <div class="badge gold">TikTok</div>
           <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         </div>
         <div class="card-body">
-          <div class="card-title">Can liquid water exist below zero? - CBS Mission Unstoppable</div>
+          <div class="card-title">Can liquid water exist below zero? — CBS Mission Unstoppable</div>
           <div class="card-desc">Featured scientist on CBS TV show Mission Unstoppable (produced with IF/THEN She Can), explaining the science behind supercooled water for their TV Show TikTok page.</div>
           <div class="card-tag">CBS · IF/THEN She Can — Watch on TikTok →</div>
         </div>
       </a>
     </div>
+
+    <!-- FIX: CBS Instagram snowflake — use your own site photo -->
     <div class="card">
       <a class="card-link" href="https://www.instagram.com/reels/CmhbrTavRwI/" target="_blank">
         <div class="thumb">
-          <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/2u1a1318-edited.jpg" alt="CBS Instagram" />
+          <img
+            src="https://fernandasulantay.com/wp-content/uploads/2024/11/2u1a1318-edited.jpg"
+            alt="CBS Instagram Snowflake Science"
+            loading="lazy"
+          />
           <div class="badge gold">Instagram</div>
           <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         </div>
@@ -231,38 +274,53 @@
         </div>
       </a>
     </div>
+
+    <!-- FIX: Kids Podcast Spanish — use your own site photo -->
     <div class="card">
       <a class="card-link" href="https://www.instagram.com/reel/DUXF1FaDJZ5/" target="_blank">
         <div class="thumb">
-          <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/ff8af093-1afe-4344-bfb6-610ae646c1bb-edited-1.jpg" alt="Kids Podcast" />
+          <img
+            src="https://fernandasulantay.com/wp-content/uploads/2024/11/ff8af093-1afe-4344-bfb6-610ae646c1bb-edited-1.jpg"
+            alt="Cráneo: Ciencia para niños curiosos"
+            loading="lazy"
+          />
           <div class="badge">Instagram</div>
           <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         </div>
         <div class="card-body">
-          <div class="card-title">Átomos: bloques de construcción del universo - Cráneo: Ciencia para niños curiosos</div>
-          <div class="card-desc"> Featured scientist on children’s science podcast “Cráneo: Ciencia para niños curiosos” (sponsored by SHPE) explaining atoms, making advanced science fun and accessible.</div>
+          <div class="card-title">Átomos: bloques de construcción del universo — Cráneo: Ciencia para niños curiosos</div>
+          <div class="card-desc">Featured scientist on children's science podcast "Cráneo: Ciencia para niños curiosos" (sponsored by SHPE) explaining atoms, making advanced science fun and accessible.</div>
           <div class="card-tag">SHPE · Orbit</div>
         </div>
       </a>
     </div>
+
+    <!-- FIX: Kids Podcast English — use your own site photo -->
     <div class="card">
       <a class="card-link" href="https://www.instagram.com/p/DUXUuKlDWnW/" target="_blank">
         <div class="thumb">
-          <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/ff8af093-1afe-4344-bfb6-610ae646c1bb-edited-1.jpg" alt="Kids Podcast" />
+          <img
+            src="https://fernandasulantay.com/wp-content/uploads/2024/11/ff8af093-1afe-4344-bfb6-610ae646c1bb-edited-1.jpg"
+            alt="Orbit: Science for kids"
+            loading="lazy"
+          />
           <div class="badge">Instagram</div>
           <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         </div>
         <div class="card-body">
-          <div class="card-title">The building blocks of the universe! - Orbit: Science for kids</div>
-          <div class="card-desc"> Featured scientist on children’s science podcast “Orbit: Science for kids” (sponsored by SHPE) explaining atoms, making advanced science fun and accessible.</div>
+          <div class="card-title">The building blocks of the universe! — Orbit: Science for kids</div>
+          <div class="card-desc">Featured scientist on children's science podcast "Orbit: Science for kids" (sponsored by SHPE) explaining atoms, making advanced science fun and accessible.</div>
           <div class="card-tag">SHPE · Orbit</div>
         </div>
       </a>
     </div>
+
   </div>
 </div>
 
-<!-- BEAUTY -->
+<!-- ═══════════════════════════════════════════
+     BEAUTY & SKINCARE
+═══════════════════════════════════════════ -->
 <div id="beauty" class="section">
   <div class="section-header">
     <div class="section-eyebrow">Content Creation</div>
@@ -275,7 +333,7 @@
     <div class="card">
       <a class="card-link" href="https://www.instagram.com/reel/DWJmVbKgPr4/" target="_blank">
         <div class="thumb">
-          <img src="https://wsrv.nl/?url=instagram.com/p/DWJmVbKgPr4/media/?size=l&output=jpg&w=600&h=338&fit=cover" onerror="this.src='https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg'" alt="Armani Beauty" />
+          <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg" alt="Armani Beauty" loading="lazy" />
           <div class="badge gold">L'Oréal · Armani Beauty</div>
           <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         </div>
@@ -290,7 +348,7 @@
     <div class="card">
       <a class="card-link" href="https://www.instagram.com/reel/DPriKHoEvYc/" target="_blank">
         <div class="thumb">
-          <img src="https://wsrv.nl/?url=instagram.com/p/DPriKHoEvYc/media/?size=l&output=jpg&w=600&h=338&fit=cover" onerror="this.src='https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg'" alt="GRWM L'Oréal" />
+          <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg" alt="GRWM L'Oréal" loading="lazy" />
           <div class="badge gold">L'Oréal · GRWM</div>
           <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         </div>
@@ -305,13 +363,13 @@
     <div class="card">
       <a class="card-link" href="https://www.instagram.com/reel/DUv0L06kSjQ/" target="_blank">
         <div class="thumb">
-          <img src="https://wsrv.nl/?url=instagram.com/p/DUv0L06kSjQ/media/?size=l&output=jpg&w=600&h=338&fit=cover" onerror="this.src='https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg'" alt="L'Oréal PR" />
+          <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg" alt="L'Oréal PR" loading="lazy" />
           <div class="badge gold">L'Oréal PR</div>
           <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         </div>
         <div class="card-body">
           <div class="card-title">PR Haul</div>
-          <div class="card-desc">Monthly PR haul showcasing L'Oréal products - shared across feed and stories to an engaged science and beauty audience.</div>
+          <div class="card-desc">Monthly PR haul showcasing L'Oréal products — shared across feed and stories to an engaged science and beauty audience.</div>
           <div class="card-tag">L'Oréal · PR Haul</div>
         </div>
       </a>
@@ -320,13 +378,13 @@
     <div class="card">
       <a class="card-link" href="https://www.instagram.com/reel/DT3e2LZEudW/" target="_blank">
         <div class="thumb">
-          <img src="https://wsrv.nl/?url=instagram.com/p/DT3e2LZEudW/media/?size=l&output=jpg&w=600&h=338&fit=cover" onerror="this.src='https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg'" alt="L'Oréal New Launches" />
+          <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg" alt="L'Oréal New Launches" loading="lazy" />
           <div class="badge gold">PR Haul</div>
           <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         </div>
         <div class="card-body">
           <div class="card-title">L'Oréal — New Launches</div>
-          <div class="card-desc">First-look content on L'Oréal new launches - shared across feed and stories to an engaged science and beauty audience.</div>
+          <div class="card-desc">First-look content on L'Oréal new launches — shared across feed and stories to an engaged science and beauty audience.</div>
           <div class="card-tag">L'Oréal · New Launch</div>
         </div>
       </a>
@@ -335,13 +393,13 @@
     <div class="card">
       <a class="card-link" href="https://www.instagram.com/reel/DS56dJxEl1x/" target="_blank">
         <div class="thumb">
-          <img src="https://wsrv.nl/?url=instagram.com/p/DS56dJxEl1x/media/?size=l&output=jpg&w=600&h=338&fit=cover" onerror="this.src='https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg'" alt="L'Oréal PR 3" />
+          <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg" alt="L'Oréal PR 3" loading="lazy" />
           <div class="badge gold">PR Haul</div>
           <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         </div>
         <div class="card-body">
           <div class="card-title">PR Haul</div>
-          <div class="card-desc">Monthly PR haul showcasing L'Oréal products - shared across feed and stories to an engaged science and beauty audience.</div>
+          <div class="card-desc">Monthly PR haul showcasing L'Oréal products — shared across feed and stories to an engaged science and beauty audience.</div>
           <div class="card-tag">L'Oréal · PR</div>
         </div>
       </a>
@@ -350,13 +408,13 @@
     <div class="card">
       <a class="card-link" href="https://www.instagram.com/reel/DRiHNWrkui5/" target="_blank">
         <div class="thumb">
-          <img src="https://wsrv.nl/?url=instagram.com/p/DRiHNWrkui5/media/?size=l&output=jpg&w=600&h=338&fit=cover" onerror="this.src='https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg'" alt="L'Oréal PR 4" />
+          <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg" alt="L'Oréal PR 4" loading="lazy" />
           <div class="badge gold">PR Haul</div>
           <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         </div>
         <div class="card-body">
           <div class="card-title">PR Haul</div>
-          <div class="card-desc">PR Haul showcasing L'Oréal skincare into a real scientist's daily life.</div>
+          <div class="card-desc">PR Haul integrating L'Oréal skincare into a real scientist's daily life.</div>
           <div class="card-tag">L'Oréal · PR</div>
         </div>
       </a>
@@ -365,22 +423,23 @@
     <div class="card">
       <a class="card-link" href="https://www.instagram.com/reel/Cu94chKgEb8/" target="_blank">
         <div class="thumb">
-          <img src="https://wsrv.nl/?url=instagram.com/p/Cu94chKgEb8/media/?size=l&output=jpg&w=600&h=338&fit=cover" onerror="this.src='https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg'" alt="Kiehl's" />
+          <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg" alt="Kiehl's" loading="lazy" />
           <div class="badge gold">PR Haul</div>
           <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         </div>
         <div class="card-body">
           <div class="card-title">PR Haul</div>
-          <div class="card-desc">Monthly PR haul showcasing L'Oréal products - shared across feed and stories to an engaged science and beauty audience.</div>
+          <div class="card-desc">Monthly PR haul showcasing L'Oréal products — shared across feed and stories to an engaged science and beauty audience.</div>
           <div class="card-tag">L'Oréal Luxe · Organic</div>
         </div>
       </a>
     </div>
 
+    <!-- FIX: last 4 broken — replaced wsrv with your own site images -->
     <div class="card">
       <a class="card-link" href="https://www.instagram.com/reel/DWCdKcjgWr5/" target="_blank">
         <div class="thumb">
-          <img src="https://wsrv.nl/?url=instagram.com/p/DWCdKcjgWr5/media/?size=l&output=jpg&w=600&h=338&fit=cover" onerror="this.src='https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg'" alt="Pixi" />
+          <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_3722-edited.jpg" alt="Pixi" loading="lazy" />
           <div class="badge">Blush Review</div>
           <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         </div>
@@ -395,7 +454,7 @@
     <div class="card">
       <a class="card-link" href="https://www.instagram.com/reel/DBBnjOfuZpe/" target="_blank">
         <div class="thumb">
-          <img src="https://wsrv.nl/?url=instagram.com/p/DBBnjOfuZpe/media/?size=l&output=jpg&w=600&h=338&fit=cover" onerror="this.src='https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg'" alt="Neutrogena" />
+          <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_3722-edited.jpg" alt="Neutrogena" loading="lazy" />
           <div class="badge">Derma Skincare</div>
           <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         </div>
@@ -410,7 +469,7 @@
     <div class="card">
       <a class="card-link" href="https://www.instagram.com/reel/DItqY6Qsi5H/" target="_blank">
         <div class="thumb">
-          <img src="https://wsrv.nl/?url=instagram.com/p/DItqY6Qsi5H/media/?size=l&output=jpg&w=600&h=338&fit=cover" onerror="this.src='https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg'" alt="mcobeauty" />
+          <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_3722-edited.jpg" alt="mcobeauty" loading="lazy" />
           <div class="badge">Beauty PR</div>
           <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         </div>
@@ -422,16 +481,16 @@
       </a>
     </div>
 
-       <div class="card">
+    <div class="card">
       <a class="card-link" href="https://www.instagram.com/reel/DVou6RQEkl5/" target="_blank">
         <div class="thumb">
-          <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_3722-edited.jpg" alt="Skincare Science" />
+          <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_3722-edited.jpg" alt="Skincare Science" loading="lazy" />
           <div class="badge">Skincare for 30+ women</div>
           <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         </div>
         <div class="card-body">
           <div class="card-title">Korean Skincare subscription box monthly review</div>
-          <div class="card-desc">Featuring the korean skincare subscription box Seoul Beauty Club.</div>
+          <div class="card-desc">Featuring the Korean skincare subscription box Seoul Beauty Club.</div>
           <div class="card-tag">Skincare · Gifted partnership</div>
         </div>
       </a>
@@ -440,13 +499,13 @@
     <div class="card">
       <a class="card-link" href="https://www.instagram.com/reel/DUvbJZIkexy/" target="_blank">
         <div class="thumb">
-          <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg" alt="Skincare Chemistry" />
+          <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_4764-edited.jpg" alt="Skincare Chemistry" loading="lazy" />
           <div class="badge">Skincare for 30+ women</div>
           <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         </div>
         <div class="card-body">
           <div class="card-title">Korean Skincare subscription box monthly review</div>
-          <div class="card-desc">Featuring the korean skincare subscription box Seoul Beauty Club.</div>
+          <div class="card-desc">Featuring the Korean skincare subscription box Seoul Beauty Club.</div>
           <div class="card-tag">Skincare · Gifted Partnership</div>
         </div>
       </a>
@@ -455,7 +514,9 @@
   </div>
 </div>
 
-<!-- BRANDS -->
+<!-- ═══════════════════════════════════════════
+     BRANDS
+═══════════════════════════════════════════ -->
 <div id="brands" class="section">
   <div class="section-header">
     <div class="section-eyebrow">Collaborations</div>
@@ -515,24 +576,27 @@
 
   <div class="sub-label">Selected Brand Content</div>
   <div class="grid">
+
+    <!-- FIX: Apple — replaced wsrv with your site image -->
     <div class="card">
       <a class="card-link" href="https://www.instagram.com/reel/DUbJHEZEfhT/" target="_blank">
         <div class="thumb">
-          <img src="https://wsrv.nl/?url=instagram.com/p/DUbJHEZEfhT/media/?size=l&output=jpg&w=600&h=338&fit=cover" onerror="this.src='https://fernandasulantay.com/wp-content/uploads/2024/11/img_3722-edited.jpg'" alt="Apple" />
+          <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/2u1a1318-edited.jpg" alt="Apple Swift Student Challenge" loading="lazy" />
           <div class="badge">Apple</div>
           <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         </div>
         <div class="card-body">
           <div class="card-title">Apple — Swift Student Challenge</div>
-          <div class="card-desc">Promoting Apple's Swift Student Challenge - opportunity for undergraduate students.</div>
+          <div class="card-desc">Promoting Apple's Swift Student Challenge — opportunity for undergraduate students.</div>
           <div class="card-tag">Organic</div>
         </div>
       </a>
     </div>
+
     <div class="card">
       <a class="card-link" href="https://www.instagram.com/reel/C502aafAkOd/" target="_blank">
         <div class="thumb">
-          <img src="https://wsrv.nl/?url=instagram.com/p/C502aafAkOd/media/?size=l&output=jpg&w=600&h=338&fit=cover" onerror="this.src='https://fernandasulantay.com/wp-content/uploads/2024/11/img_3722-edited.jpg'" alt="Adobe" />
+          <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_3722-edited.jpg" alt="Adobe" loading="lazy" />
           <div class="badge">Adobe</div>
           <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         </div>
@@ -544,29 +608,26 @@
       </a>
     </div>
 
+    <!-- FIX: CT Office of Manufacturing — replaced wsrv with your site image -->
     <div class="card">
       <a class="card-link" href="https://www.instagram.com/reel/DLGG4U1Sxj0/" target="_blank">
         <div class="thumb">
-          <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/2u1a1318-edited.jpg" alt="CT Manufacturing" />
+          <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/2u1a1318-edited.jpg" alt="CT Manufacturing" loading="lazy" />
           <div class="badge">CT Office of Manufacturing</div>
           <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         </div>
         <div class="card-body">
-          <div class="card-title">CT Office of Manufacturing - STEM jobs</div>
+          <div class="card-title">CT Office of Manufacturing — STEM jobs</div>
           <div class="card-desc">Partnering with the Connecticut Office of Manufacturing to promote STEM and engineering careers to the next generation.</div>
           <div class="card-tag">Paid Partnership</div>
         </div>
       </a>
     </div>
 
-
-
-
-   
     <div class="card">
       <a class="card-link" href="https://www.instagram.com/reel/C2BfGnyAOCY/" target="_blank">
         <div class="thumb">
-          <img src="https://wsrv.nl/?url=instagram.com/p/C2BfGnyAOCY/media/?size=l&output=jpg&w=600&h=338&fit=cover" onerror="this.src='https://fernandasulantay.com/wp-content/uploads/2024/11/img_3722-edited.jpg'" alt="Sharpie" />
+          <img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_3722-edited.jpg" alt="Sharpie" loading="lazy" />
           <div class="badge">Sharpie</div>
           <div class="play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
         </div>
@@ -577,10 +638,13 @@
         </div>
       </a>
     </div>
+
   </div>
 </div>
 
-<!-- SPEAKING -->
+<!-- ═══════════════════════════════════════════
+     SPEAKING & EVENTS
+═══════════════════════════════════════════ -->
 <div id="speaking" class="section">
   <div class="section-header">
     <div class="section-eyebrow">Speaking & Outreach</div>
@@ -603,30 +667,221 @@
 
   <div class="sub-label">Past Events</div>
   <div class="events-list">
-    <div class="event-item"><div class="event-date">March 2026</div><div><div class="event-name">UNC Chapel Hill -  Carolina Latinx Center‘s Atlas STEM Speaker Series</div><div class="event-role">Keynote Speaker</div><div class="event-location">UNC Chapel Hill, Chapel Hill, NC</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2026/02/img_8877-edited-1.jpg" alt="UNCchapelhill 2026" /></div></div></div>
-    <div class="event-item"><div class="event-date">Feb 2026</div><div><div class="event-name">Latina Empowerment and Development (LEAD) Conference</div><div class="event-role">STEM Panelist</div><div class="event-location">Harvard University, Cambridge, MA</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2026/02/img_8877-edited-1.jpg" alt="LEAD 2026" /></div></div></div>
-    <div class="event-item"><div class="event-date">Nov 2025</div><div><div class="event-name">SHPE 2025 National Conference</div><div class="event-role">Content Creator & Panelist</div><div class="event-location">Philadelphia, PA, USA</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2026/02/img_8877-edited-1.jpg" alt="SHPE 2025" /></div></div></div>
-    <div class="event-item"><div class="event-date">July 2025</div><div><div class="event-name">InspiraSTEM 2025 Conference</div><div class="event-role">Co-Founder, Speaker & Instructor</div><div class="event-location">Key Institute — El Salvador</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2026/02/inspirastem3-48.jpg" alt="InspiraSTEM 2025" /></div></div></div>
-    <div class="event-item"><div class="event-date">April 2025</div><div><div class="event-name">ALPFA Leadership Summit</div><div class="event-role">Panelist</div><div class="event-location">Columbia University — New York, NY, USA</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2025/05/img_4010.jpg" alt="ALPFA" /></div></div></div>
-    <div class="event-item"><div class="event-date">March 2025</div><div><div class="event-name">My Journey as a Scientist and Woman in STEM: from El Salvador to Yale</div><div class="event-role">Keynote Speaker</div><div class="event-location">Universidad Don Bosco — El Salvador</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2025/05/img_8996-edited.png" alt="Don Bosco" /></div></div></div>
-    <div class="event-item"><div class="event-date">March 2025</div><div><div class="event-name">My Journey as a Scientist and Woman in STEM: from El Salvador to Yale</div><div class="event-role">Keynote Speaker</div><div class="event-location">Universidad Centroamericana José Simeón Cañas — El Salvador</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2025/05/ponencia_fernanda_sulantay-62.jpeg" alt="UCA" /></div></div></div>
-    <div class="event-item"><div class="event-date">Feb 2025</div><div><div class="event-name">LEAD 2025 Conference — "Digital Story: Creative Media"</div><div class="event-role">Panelist</div><div class="event-location">Harvard University — Cambridge, MA, USA</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2025/05/dsc00585-edited.jpg" alt="LEAD Harvard" /></div></div></div>
-    <div class="event-item"><div class="event-date">Feb 2025</div><div><div class="event-name">AIChE Seminar — Effective Personal Branding for Engineers</div><div class="event-role">Panelist</div><div class="event-location">Online</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2025/05/aiche_onlineseminar_picture.png" alt="AIChE Seminar" /></div></div></div>
-    <div class="event-item"><div class="event-date">Oct 2024</div><div><div class="event-name">SHPE 2024 National Conference</div><div class="event-role">"#STEMStars: Hispanic Creators Shaping the Future" Panelist & Content Creator</div><div class="event-location">Anaheim, CA, USA</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/11/ff8af093-1afe-4344-bfb6-610ae646c1bb-edited.jpg" alt="SHPE 2024" /></div></div></div>
-    <div class="event-item"><div class="event-date">Oct 2024</div><div><div class="event-name">AIChE Annual Student Conference</div><div class="event-role">"Leadership in Chemical Engineering" Panelist</div><div class="event-location">San Diego, CA, USA</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_fb087f08a622-1-edited.jpeg" alt="AIChE 2024" /></div></div></div>
-    <div class="event-item"><div class="event-date">Oct 2024</div><div><div class="event-name">CIMAT 2024 Conference</div><div class="event-role">Speaker</div><div class="event-location">El Salvador</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/11/fernanda.jpg" alt="CIMAT 2024" /></div></div></div>
-    <div class="event-item"><div class="event-date">May 2024</div><div><div class="event-name">EmpowerMinds STEM / Mental Health Summit</div><div class="event-role">Content Creator, Speaker & Event Facilitator</div><div class="event-location">Decker Middle School — Austin, TX (Generation Pionera & Whisker Technologies)</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/05/img_3733-edited.jpg" alt="EmpowerMinds" /></div></div></div>
-    <div class="event-item"><div class="event-date">April 2024</div><div><div class="event-name">Women in Engineering Gala — SWE</div><div class="event-role">Panelist</div><div class="event-location">Yale University — New Haven, CT, USA</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/05/swe-gala-010-edited.jpg" alt="SWE Gala" /></div></div></div>
-    <div class="event-item"><div class="event-date">Nov 2023</div><div><div class="event-name">SHPE 2023 National Convention</div><div class="event-role">"Socializing STEM and Engineering Your Future" Panelist & Content Creator</div><div class="event-location">Salt Lake City, UT, USA</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/05/img_3737-edited.jpg" alt="SHPE 2023" /></div></div></div>
-    <div class="event-item"><div class="event-date">Oct 2023</div><div><div class="event-name">International Latina Engineer Week</div><div class="event-role">Keynote Speaker</div><div class="event-location">University of Illinois Chicago — Chicago, IL, USA</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/05/img_5592.jpg" alt="Latina Engineer Week" /></div></div></div>
-    <div class="event-item"><div class="event-date">March 2023</div><div><div class="event-name">New England Promise High School Regional Science Bowl</div><div class="event-role">Keynote Speaker & Panelist</div><div class="event-location">University of Connecticut — Storrs, CT, USA</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/05/b7c82253-4a81-4935-8e57-4cc4f957ead1.jpg" alt="Science Bowl" /></div></div></div>
-    <div class="event-item"><div class="event-date">Feb 2023</div><div><div class="event-name">Harvard WeCode 2023 Conference</div><div class="event-role">"Social Media" Panelist</div><div class="event-location">Harvard University — Cambridge, MA, USA</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/05/img_5001-edited.jpg" alt="WeCode 2023" /></div></div></div>
-    <div class="event-item"><div class="event-date">Nov 2022</div><div><div class="event-name">SHPE 2022 National Convention</div><div class="event-role">"Fearlessly Building a Brand" Panelist & Content Creator</div><div class="event-location">Charlotte, NC, USA</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/05/img_3735-edited.jpg" alt="SHPE 2022" /></div></div></div>
-    <div class="event-item"><div class="event-date">Oct 2021</div><div><div class="event-name">Empowered Engineers Challenge</div><div class="event-role">Conference Co-Founder & Keynote Speaker</div><div class="event-location">Online</div><div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/05/img_1255-edited.jpg" alt="Empowered Engineers" /></div></div></div>
+
+    <div class="event-item">
+      <div class="event-date">March 2026</div>
+      <div>
+        <div class="event-name">UNC Chapel Hill — Carolina Latinx Center's Atlas STEM Speaker Series</div>
+        <div class="event-role">Keynote Speaker</div>
+        <div class="event-location">UNC Chapel Hill, Chapel Hill, NC</div>
+        <div class="event-photo">
+          <!-- ★ NEW EVENT — replace the src below with your actual image URL once uploaded to your site -->
+          <!-- Option A: upload to fernandasulantay.com/wp-admin and paste the URL here -->
+          <!-- Option B: use a service like Cloudinary, Google Photos share link, or GitHub raw URL -->
+          <img src="https://fernandasulantay.com/wp-content/uploads/2026/02/img_8877-edited-1.jpg" alt="UNC Chapel Hill 2026" loading="lazy" />
+        </div>
+      </div>
+    </div>
+
+    <div class="event-item">
+      <div class="event-date">Feb 2026</div>
+      <div>
+        <div class="event-name">Latina Empowerment and Development (LEAD) Conference</div>
+        <div class="event-role">STEM Panelist</div>
+        <div class="event-location">Harvard University, Cambridge, MA</div>
+        <div class="event-photo">
+          <!-- ★ NEW EVENT — replace the src below with your actual image URL once uploaded -->
+          <img src="https://fernandasulantay.com/wp-content/uploads/2026/02/img_8877-edited-1.jpg" alt="LEAD 2026" loading="lazy" />
+        </div>
+      </div>
+    </div>
+
+    <div class="event-item">
+      <div class="event-date">Nov 2025</div>
+      <div>
+        <div class="event-name">SHPE 2025 National Conference</div>
+        <div class="event-role">Content Creator & Panelist</div>
+        <div class="event-location">Philadelphia, PA, USA</div>
+        <div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2026/02/img_8877-edited-1.jpg" alt="SHPE 2025" loading="lazy" /></div>
+      </div>
+    </div>
+
+    <div class="event-item">
+      <div class="event-date">July 2025</div>
+      <div>
+        <div class="event-name">InspiraSTEM 2025 Conference</div>
+        <div class="event-role">Co-Founder, Speaker & Instructor</div>
+        <div class="event-location">Key Institute — El Salvador</div>
+        <div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2026/02/inspirastem3-48.jpg" alt="InspiraSTEM 2025" loading="lazy" /></div>
+      </div>
+    </div>
+
+    <div class="event-item">
+      <div class="event-date">April 2025</div>
+      <div>
+        <div class="event-name">ALPFA Leadership Summit</div>
+        <div class="event-role">Panelist</div>
+        <div class="event-location">Columbia University — New York, NY, USA</div>
+        <div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2025/05/img_4010.jpg" alt="ALPFA" loading="lazy" /></div>
+      </div>
+    </div>
+
+    <div class="event-item">
+      <div class="event-date">March 2025</div>
+      <div>
+        <div class="event-name">My Journey as a Scientist and Woman in STEM: from El Salvador to Yale</div>
+        <div class="event-role">Keynote Speaker</div>
+        <div class="event-location">Universidad Don Bosco — El Salvador</div>
+        <div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2025/05/img_8996-edited.png" alt="Don Bosco" loading="lazy" /></div>
+      </div>
+    </div>
+
+    <div class="event-item">
+      <div class="event-date">March 2025</div>
+      <div>
+        <div class="event-name">My Journey as a Scientist and Woman in STEM: from El Salvador to Yale</div>
+        <div class="event-role">Keynote Speaker</div>
+        <div class="event-location">Universidad Centroamericana José Simeón Cañas — El Salvador</div>
+        <div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2025/05/ponencia_fernanda_sulantay-62.jpeg" alt="UCA" loading="lazy" /></div>
+      </div>
+    </div>
+
+    <div class="event-item">
+      <div class="event-date">Feb 2025</div>
+      <div>
+        <div class="event-name">LEAD 2025 Conference — "Digital Story: Creative Media"</div>
+        <div class="event-role">Panelist</div>
+        <div class="event-location">Harvard University — Cambridge, MA, USA</div>
+        <div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2025/05/dsc00585-edited.jpg" alt="LEAD Harvard" loading="lazy" /></div>
+      </div>
+    </div>
+
+    <div class="event-item">
+      <div class="event-date">Feb 2025</div>
+      <div>
+        <div class="event-name">AIChE Seminar — Effective Personal Branding for Engineers</div>
+        <div class="event-role">Panelist</div>
+        <div class="event-location">Online</div>
+        <div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2025/05/aiche_onlineseminar_picture.png" alt="AIChE Seminar" loading="lazy" /></div>
+      </div>
+    </div>
+
+    <div class="event-item">
+      <div class="event-date">Oct 2024</div>
+      <div>
+        <div class="event-name">SHPE 2024 National Conference</div>
+        <div class="event-role">"#STEMStars: Hispanic Creators Shaping the Future" Panelist & Content Creator</div>
+        <div class="event-location">Anaheim, CA, USA</div>
+        <div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/11/ff8af093-1afe-4344-bfb6-610ae646c1bb-edited.jpg" alt="SHPE 2024" loading="lazy" /></div>
+      </div>
+    </div>
+
+    <div class="event-item">
+      <div class="event-date">Oct 2024</div>
+      <div>
+        <div class="event-name">AIChE Annual Student Conference</div>
+        <div class="event-role">"Leadership in Chemical Engineering" Panelist</div>
+        <div class="event-location">San Diego, CA, USA</div>
+        <div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/11/img_fb087f08a622-1-edited.jpeg" alt="AIChE 2024" loading="lazy" /></div>
+      </div>
+    </div>
+
+    <div class="event-item">
+      <div class="event-date">Oct 2024</div>
+      <div>
+        <div class="event-name">CIMAT 2024 Conference</div>
+        <div class="event-role">Speaker</div>
+        <div class="event-location">El Salvador</div>
+        <div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/11/fernanda.jpg" alt="CIMAT 2024" loading="lazy" /></div>
+      </div>
+    </div>
+
+    <div class="event-item">
+      <div class="event-date">May 2024</div>
+      <div>
+        <div class="event-name">EmpowerMinds STEM / Mental Health Summit</div>
+        <div class="event-role">Content Creator, Speaker & Event Facilitator</div>
+        <div class="event-location">Decker Middle School — Austin, TX</div>
+        <div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/05/img_3733-edited.jpg" alt="EmpowerMinds" loading="lazy" /></div>
+      </div>
+    </div>
+
+    <div class="event-item">
+      <div class="event-date">April 2024</div>
+      <div>
+        <div class="event-name">Women in Engineering Gala — SWE</div>
+        <div class="event-role">Panelist</div>
+        <div class="event-location">Yale University — New Haven, CT, USA</div>
+        <div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/05/swe-gala-010-edited.jpg" alt="SWE Gala" loading="lazy" /></div>
+      </div>
+    </div>
+
+    <div class="event-item">
+      <div class="event-date">Nov 2023</div>
+      <div>
+        <div class="event-name">SHPE 2023 National Convention</div>
+        <div class="event-role">"Socializing STEM and Engineering Your Future" Panelist & Content Creator</div>
+        <div class="event-location">Salt Lake City, UT, USA</div>
+        <div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/05/img_3737-edited.jpg" alt="SHPE 2023" loading="lazy" /></div>
+      </div>
+    </div>
+
+    <div class="event-item">
+      <div class="event-date">Oct 2023</div>
+      <div>
+        <div class="event-name">International Latina Engineer Week</div>
+        <div class="event-role">Keynote Speaker</div>
+        <div class="event-location">University of Illinois Chicago — Chicago, IL, USA</div>
+        <div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/05/img_5592.jpg" alt="Latina Engineer Week" loading="lazy" /></div>
+      </div>
+    </div>
+
+    <div class="event-item">
+      <div class="event-date">March 2023</div>
+      <div>
+        <div class="event-name">New England Promise High School Regional Science Bowl</div>
+        <div class="event-role">Keynote Speaker & Panelist</div>
+        <div class="event-location">University of Connecticut — Storrs, CT, USA</div>
+        <div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/05/b7c82253-4a81-4935-8e57-4cc4f957ead1.jpg" alt="Science Bowl" loading="lazy" /></div>
+      </div>
+    </div>
+
+    <div class="event-item">
+      <div class="event-date">Feb 2023</div>
+      <div>
+        <div class="event-name">Harvard WeCode 2023 Conference</div>
+        <div class="event-role">"Social Media" Panelist</div>
+        <div class="event-location">Harvard University — Cambridge, MA, USA</div>
+        <div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/05/img_5001-edited.jpg" alt="WeCode 2023" loading="lazy" /></div>
+      </div>
+    </div>
+
+    <div class="event-item">
+      <div class="event-date">Nov 2022</div>
+      <div>
+        <div class="event-name">SHPE 2022 National Convention</div>
+        <div class="event-role">"Fearlessly Building a Brand" Panelist & Content Creator</div>
+        <div class="event-location">Charlotte, NC, USA</div>
+        <div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/05/img_3735-edited.jpg" alt="SHPE 2022" loading="lazy" /></div>
+      </div>
+    </div>
+
+    <div class="event-item">
+      <div class="event-date">Oct 2021</div>
+      <div>
+        <div class="event-name">Empowered Engineers Challenge</div>
+        <div class="event-role">Conference Co-Founder & Keynote Speaker</div>
+        <div class="event-location">Online</div>
+        <div class="event-photo"><img src="https://fernandasulantay.com/wp-content/uploads/2024/05/img_1255-edited.jpg" alt="Empowered Engineers" loading="lazy" /></div>
+      </div>
+    </div>
+
   </div>
 </div>
 
-<!-- MEDIA & PRESS -->
+<!-- ═══════════════════════════════════════════
+     MEDIA & PRESS
+═══════════════════════════════════════════ -->
 <div id="media" class="section">
   <div class="section-header">
     <div class="section-eyebrow">Press & Features</div>
@@ -666,13 +921,14 @@
   </div>
 </div>
 
-<!-- PODCASTS -->
+<!-- ═══════════════════════════════════════════
+     PODCASTS
+═══════════════════════════════════════════ -->
 <div id="podcasts" class="section">
   <div class="section-header">
     <div class="section-eyebrow">Audio & Podcast</div>
     <div class="gold-line"></div>
     <h2 class="section-title">Podcast Episodes</h2>
-    <p class="section-desc"></p>
   </div>
 
   <div class="sub-label">Science Communication</div>
@@ -706,7 +962,7 @@
   </div>
 </div>
 
-</div>
+</div><!-- /main -->
 
 <script>
 function showTab(id, el) {
